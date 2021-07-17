@@ -1,0 +1,9 @@
+Get-ChildItem '*.cs' -Recurse | ForEach {(Get-Content -Path $_.PSPath | ForEach  { $_ -replace 'Micah', 'Mina' }) | Set-Content -Path $_.PSPath }
+Get-ChildItem '*.fs' -Recurse | ForEach {(Get-Content -Path $_.PSPath | ForEach  { $_ -replace 'Micah', 'Mina' }) | Set-Content -Path $_.PSPath }
+Get-ChildItem '*.csproj' -Recurse | ForEach {(Get-Content -Path $_.PSPath | ForEach  { $_ -replace 'Micah', 'Mina' }) | Set-Content -Path $_.PSPath }
+Get-ChildItem '*.fsproj' -Recurse | ForEach {(Get-Content -Path $_.PSPath | ForEach  { $_ -replace 'Micah', 'Mina' }) | Set-Content -Path $_.PSPath }
+Get-ChildItem '*.js' -Recurse | ForEach {(Get-Content -Path $_.PSPath | ForEach  { $_ -replace 'Micah', 'Mina' }) | Set-Content -Path $_.PSPath }
+Get-ChildItem '*.sql' -Recurse | ForEach {(Get-Content -Path $_.PSPath | ForEach  { $_ -replace 'micah', 'mina' }) | Set-Content -Path $_.PSPath }
+Get-ChildItem -File -Recurse | % { Rename-Item -Path $_.PSPath -NewName $_.Name.replace("Micah","Mina") | Set-Content -Path $_.PSPath }
+Get-ChildItem -Directory -Recurse | % { Rename-Item -Path $_.PSPath -NewName $_.Name.replace("Micah","Mina") | Set-Content -Path $_.PSPath }
+Get-ChildItem -File -Recurse | % { Rename-Item -Path $_.PSPath -NewName $_.Name.replace("micah","mina") | Set-Content -Path $_.PSPath }

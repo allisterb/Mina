@@ -1,0 +1,108 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mina.Base", "Mina.Base\Mina.Base.csproj", "{1A74E457-83A1-4546-AB95-91EC10980272}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{DA8EE454-B565-4167-92E5-C6BCB3232769}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Mina.Base.Fs", "Mina.Base.Fs\Mina.Base.Fs.fsproj", "{F835F483-0C02-4E94-AC30-7B977C64194C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FHIR", "FHIR", "{99A1FE93-4729-4AFD-87FD-D7062B4E4078}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mina.FHIR", "Mina.FHIR\Mina.FHIR.csproj", "{48C70C01-846D-422A-9F7E-DF07562F626A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NLU", "NLU", "{B0952B87-B727-4340-A35B-8B77A983D7B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mina.NLU.ExpertAI", "Mina.NLU.ExpertAI\Mina.NLU.ExpertAI.csproj", "{6F322DFF-331B-4E01-AC7C-AFE999850CCC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mina.NLU.GoogleHC", "Mina.NLU.GoogleHC\Mina.NLU.GoogleHC.csproj", "{C3162A63-6AA1-4E08-87B7-C76C24FA08D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{2BCF7C95-57A6-4546-8CA0-69957567AB5C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MIcah.CLI", "Mina.CLI\MIcah.CLI.csproj", "{3AD401F8-9F3C-4B01-8A5A-DA6F36B79F34}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Mina.Core", "Mina.Core\Mina.Core.fsproj", "{F9E34F20-6C19-45C9-A7CC-0C324F186C34}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mina.Logger.Serilog", "Mina.Logger.Serilog\Mina.Logger.Serilog.csproj", "{6B1631C8-368C-49AC-B02E-5149B785BD7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{7129674D-9C12-4971-800D-8C7DD7C40FB7}"
+	ProjectSection(SolutionItems) = preProject
+		..\deploy\oc-create-app.cmd = ..\deploy\oc-create-app.cmd
+		..\deploy\oc-deploy-build.cmd = ..\deploy\oc-deploy-build.cmd
+		..\deploy\oc-pgdb-port-forward.cmd = ..\deploy\oc-pgdb-port-forward.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{4B8B9364-8E9C-4C64-8BE4-FEF17BE4EE9C}"
+	ProjectSection(SolutionItems) = preProject
+		..\deploy\SQL\DDL_CREATE_DB_mina.sql = ..\deploy\SQL\DDL_CREATE_DB_mina.sql
+		..\deploy\SQL\DDL_CREATE_TABLE_mina.messages.sql = ..\deploy\SQL\DDL_CREATE_TABLE_mina.messages.sql
+		..\deploy\SQL\DDL_CREATE_TABLE_mina_user.sql = ..\deploy\SQL\DDL_CREATE_TABLE_mina_user.sql
+		..\deploy\SQL\DDL_CREATE_USER_mina.sql = ..\deploy\SQL\DDL_CREATE_USER_mina.sql
+	EndProjectSection
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Mina.Web", "Mina.Web\Mina.Web.fsproj", "{7A9C8CBA-322E-4BA4-955A-4FC615DCD1AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A74E457-83A1-4546-AB95-91EC10980272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A74E457-83A1-4546-AB95-91EC10980272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A74E457-83A1-4546-AB95-91EC10980272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A74E457-83A1-4546-AB95-91EC10980272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F835F483-0C02-4E94-AC30-7B977C64194C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F835F483-0C02-4E94-AC30-7B977C64194C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F835F483-0C02-4E94-AC30-7B977C64194C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F835F483-0C02-4E94-AC30-7B977C64194C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48C70C01-846D-422A-9F7E-DF07562F626A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48C70C01-846D-422A-9F7E-DF07562F626A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48C70C01-846D-422A-9F7E-DF07562F626A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48C70C01-846D-422A-9F7E-DF07562F626A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F322DFF-331B-4E01-AC7C-AFE999850CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F322DFF-331B-4E01-AC7C-AFE999850CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F322DFF-331B-4E01-AC7C-AFE999850CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F322DFF-331B-4E01-AC7C-AFE999850CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3162A63-6AA1-4E08-87B7-C76C24FA08D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3162A63-6AA1-4E08-87B7-C76C24FA08D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3162A63-6AA1-4E08-87B7-C76C24FA08D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3162A63-6AA1-4E08-87B7-C76C24FA08D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AD401F8-9F3C-4B01-8A5A-DA6F36B79F34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD401F8-9F3C-4B01-8A5A-DA6F36B79F34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD401F8-9F3C-4B01-8A5A-DA6F36B79F34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD401F8-9F3C-4B01-8A5A-DA6F36B79F34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9E34F20-6C19-45C9-A7CC-0C324F186C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E34F20-6C19-45C9-A7CC-0C324F186C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E34F20-6C19-45C9-A7CC-0C324F186C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E34F20-6C19-45C9-A7CC-0C324F186C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B1631C8-368C-49AC-B02E-5149B785BD7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B1631C8-368C-49AC-B02E-5149B785BD7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B1631C8-368C-49AC-B02E-5149B785BD7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B1631C8-368C-49AC-B02E-5149B785BD7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9C8CBA-322E-4BA4-955A-4FC615DCD1AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9C8CBA-322E-4BA4-955A-4FC615DCD1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9C8CBA-322E-4BA4-955A-4FC615DCD1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9C8CBA-322E-4BA4-955A-4FC615DCD1AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A74E457-83A1-4546-AB95-91EC10980272} = {DA8EE454-B565-4167-92E5-C6BCB3232769}
+		{F835F483-0C02-4E94-AC30-7B977C64194C} = {DA8EE454-B565-4167-92E5-C6BCB3232769}
+		{48C70C01-846D-422A-9F7E-DF07562F626A} = {99A1FE93-4729-4AFD-87FD-D7062B4E4078}
+		{6F322DFF-331B-4E01-AC7C-AFE999850CCC} = {B0952B87-B727-4340-A35B-8B77A983D7B3}
+		{C3162A63-6AA1-4E08-87B7-C76C24FA08D2} = {B0952B87-B727-4340-A35B-8B77A983D7B3}
+		{3AD401F8-9F3C-4B01-8A5A-DA6F36B79F34} = {2BCF7C95-57A6-4546-8CA0-69957567AB5C}
+		{F9E34F20-6C19-45C9-A7CC-0C324F186C34} = {2BCF7C95-57A6-4546-8CA0-69957567AB5C}
+		{6B1631C8-368C-49AC-B02E-5149B785BD7E} = {2BCF7C95-57A6-4546-8CA0-69957567AB5C}
+		{4B8B9364-8E9C-4C64-8BE4-FEF17BE4EE9C} = {7129674D-9C12-4971-800D-8C7DD7C40FB7}
+		{7A9C8CBA-322E-4BA4-955A-4FC615DCD1AE} = {2BCF7C95-57A6-4546-8CA0-69957567AB5C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA9F8BF8-9B50-4FA9-914E-9B44B6B23DB7}
+	EndGlobalSection
+EndGlobal

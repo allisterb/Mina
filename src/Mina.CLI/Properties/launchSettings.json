@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MIcah.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "fhir -d -g --search-patients family=Park"
+    }
+  }
+}
