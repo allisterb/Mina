@@ -90,6 +90,10 @@ module Dialogue =
         pushu d debug (Utterance(Json.Stringify data, Some(Intent(name, Some 1.0f)), None, None))
         target d
 
+    let trigger'<'a> (d:Dialogue) (debug:string -> unit) (target:Dialogue->unit) (name:string) (data:'a) (e:Entity list)=
+        pushu d debug (Utterance(Json.Stringify data, Some(Intent(name, Some 1.0f)), None, Some e))
+        target d
+
     let cancel (d:Dialogue) (debug:string -> unit) (qn:string) =
         let q = d.DialogueQuestions.Peek()
         if q.Name <> qn then failwithf "%A at the top of the stack does not have the name %s." q qn

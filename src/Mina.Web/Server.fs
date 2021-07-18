@@ -21,16 +21,16 @@ module Server =
     let private pgdb =
         Sql.host (Runtime.Config("PGSQL"))
         |> Sql.port 5432
-        |> Sql.username "Mina"
-        |> Sql.password "Mina"
-        |> Sql.database "Mina"
+        |> Sql.username "mina"
+        |> Sql.password "mina"
+        |> Sql.database "mina"
         |> Sql.sslMode SslMode.Prefer
         |> Sql.config "Pooling=true"
         |> Sql.formatConnectionString
         |> Sql.connect
  
     (*Config functions *)
-    let private getServerConfigVal(name:string) : string  = 
+    let private getServerConfigVal(name:string) : string = 
         pgdb
         |> Sql.query "SELECT * FROM config WHERE name=@n"
         |> Sql.parameters ["n", Sql.string name]

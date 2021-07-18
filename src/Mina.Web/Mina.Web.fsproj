@@ -18,9 +18,9 @@
     <Compile Include="Server.fs" />
     <Compile Include="Dialogue.fs" />
     <Compile Include="Questions.fs" />
+    <Compile Include="Symptoms.fs" />
     <Compile Include="Journal.fs" />
     <Compile Include="User.fs" />
-    <Compile Include="Symptoms.fs" />
     <Compile Include="Main.fs" />
     <Compile Include="Client.fs" />
     <Compile Include="Site.fs" />
@@ -31,9 +31,9 @@
     <Content Update="wwwroot\microphone\js\*.*" CopyToPublishDirectory="Always" />
     <Content Update="wwwroot\microphone\fonts\*.*" CopyToPublishDirectory="Always" />
     <None Include="wsconfig.json" />
+    <Watch Exclude="**/*" Include="bin/Debug/netcoreapp3.1/Mina.Web.exe" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BrightstarDBLibs" Version="1.14.0-alpha0003" />
     <PackageReference Include="Humanizer.Core" Version="2.11.10" />
     <PackageReference Include="Markdig" Version="0.22.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.6.0-preview.1" />

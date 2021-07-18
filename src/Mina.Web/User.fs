@@ -42,6 +42,7 @@ module User =
         let dispatch = Dialogue.dispatch d debug
         let handle = Dialogue.handle d debug
         let trigger = Dialogue.trigger d debug update
+        let trigger' = Dialogue.trigger' d debug update
         let cancel = Dialogue.cancel d debug
         let endt = Dialogue.endt d debug
         let didNotUnderstand() = Dialogue.didNotUnderstand d debug name
@@ -58,7 +59,8 @@ module User =
         let (|Response'|_|) = Dialogue.(|Response'_|_|) d
        
         let user():User = prop "user"
-        
+        let triggerJournal = Dialogue.trigger d debug Journal.update
+
         (* User functions *)
         let switchUserQuestion u = Question("switchUser", name, Verification ((fun _ -> trigger "verify" "yes"), (fun _ -> trigger "reject" "no")), None, fun _ -> say <| sprintf "Do you want me to switch to the user %s" u)
 
@@ -67,43 +69,25 @@ module User =
             async { 
                 match! Server.getUser u with 
                 | Some user ->
-                    let setupBox1(b:SweetAlert.Box) =
-                        b.Input <- "text"
-                        b.ShowCancelButton <- false
-                        b.ConfirmButtonText <- "Ok"
-                           
-                    let collectFaceAndTypingData() =
-                        let c = createDialogueBoxCanvas()
-                        startCamera JS.Document.Body c
-       
-                    let rec box(c:int, data: string array array) = 
-                        questionBox "Biometric Authentication" "" (Some (boxesWithTitles [|"2"|])) (Some (640, 480)) (Some setupBox1) (Some (collectFaceAndTypingData)) (fun o ->                         
-                            let text = o.Value :?> string
-                            let image = getCameraCanvas().ToDataURL();
-                            debug <|sprintf "User image is %s..." (image.Substring(0, 10))
-                            stopCamera()
-                            debug <| sprintf "User entered text %s." text
-                            sayRandom helloUserPhrases user.Name
-                            add "user" u
-                            async {
-                                do! Server.updateUserLastLogin user.Name |> Async.Ignore
-                                if Option.isSome user.LastLoggedIn then 
-                                    let! h = Server.humanize user.LastLoggedIn.Value
-                                    say <| sprintf "You last logged in %s." h
-                            } |> Async.Start
-                            echo "Click one of the buttons below to get more help."
-                            doc <| Doc.Concat [
-                                Bs.btnPrimary "new" (fun _ _ -> trigger "new" "new")
-                                Html.text "     "
-                                Bs.btnSuccess "query" (fun _ _ -> trigger "query" "query")
-                                Html.text "     "
-                                Bs.btnInfo "options" (fun _ _ -> trigger "options" "medication_journal")
-                                Html.text "     "
-                                Bs.btnPrimary "help" (fun _ _ -> trigger "help" "help")
-                            ]
-                            say "Click on one of the buttons to get more help"
-                        )        
-                    box(0, [||])
+                    sayRandom helloUserPhrases user.Name
+                    add "user" u
+                    async {
+                        do! Server.updateUserLastLogin user.Name |> Async.Ignore
+                        if Option.isSome user.LastLoggedIn then 
+                            let! h = Server.humanize user.LastLoggedIn.Value
+                            say <| sprintf "You last logged in %s." h
+                    } |> Async.Start
+                    echo "Click one of the buttons below to get more help."
+                    doc <| Doc.Concat [
+                        Bs.btnPrimary "new" (fun _ _ -> trigger "new" "new")
+                        Html.text "     "
+                        Bs.btnSuccess "query" (fun _ _ -> trigger "query" "query")
+                        Html.text "     "
+                        Bs.btnInfo "options" (fun _ _ -> trigger "options" "medication_journal")
+                        Html.text "     "
+                        Bs.btnPrimary "help" (fun _ _ -> trigger "help" "help")
+                    ]
+                    say "Click on one of the buttons to get more help"
 
                 | None _ -> 
                     say <| sprintf "I did not find a user with the name %s." u
