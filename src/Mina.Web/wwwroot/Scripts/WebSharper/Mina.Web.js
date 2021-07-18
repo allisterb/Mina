@@ -3038,7 +3038,7 @@
    return Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
     sayRandom(NLG.waitAddPhrases(),"symptom entry");
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addSymptomJournalEntry:-696903325",[user().Name,s,l,m$1]),function(a$7)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addSymptomJournalEntry:1587481330",[user().Name,s,l,m$1]),function(a$7)
     {
      return a$7.$==1?(say(function($8)
      {
@@ -3181,7 +3181,7 @@
    wje=WritingJournlEntry.New("l",Date.now(),writingPrompt,text,triples,lemmas,entities,behaviouralTraits,emotionalTraits);
    Concurrency.Start((b$2=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addWritingJournalEntry:594181387",[wje]),function(a$30)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addWritingJournalEntry:683724445",[wje]),function(a$30)
     {
      return a$30.$==1?Concurrency.Zero():Concurrency.Zero();
     });
@@ -3194,7 +3194,7 @@
    return Concurrency.Delay(function()
    {
     add("journalentry_text",e);
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:1136053015",[e]),function(a$30)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:-794998298",[e]),function(a$30)
     {
      var triples;
      return a$30.$==1?Concurrency.Return({
@@ -3221,7 +3221,7 @@
       return Concurrency.Zero();
      }),Concurrency.Delay(function()
      {
-      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:-1751191293",[e]),function(a$31)
+      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:-1235351537",[e]),function(a$31)
       {
        var e$1,lemmas;
        return a$31.$==1?(e$1=a$31.$0,(Journal.debug(e$1),Concurrency.Return({
@@ -3253,7 +3253,7 @@
          return Concurrency.Zero();
         }),Concurrency.Delay(function()
         {
-         return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:-470867473",[e]),function(a$32)
+         return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:1665379975",[e]),function(a$32)
          {
           var e$2,entities;
           return a$32.$==1?(e$2=a$32.$0,(Journal.debug(e$2),Concurrency.Return({
@@ -3285,7 +3285,7 @@
             return Concurrency.Zero();
            }),Concurrency.Delay(function()
            {
-            return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:1355646337",[e]),function(a$33)
+            return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:-411028893",[e]),function(a$33)
             {
              var e$3,t$1;
              return a$33.$==1?(e$3=a$33.$0,(Journal.debug(e$3),Concurrency.Return({
@@ -3317,7 +3317,7 @@
                return Concurrency.Zero();
               }),Concurrency.Delay(function()
               {
-               return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:-1558059697",[e]),function(a$34)
+               return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:-1221281804",[e]),function(a$34)
                {
                 var e$4,t$2;
                 return a$34.$==1?(e$4=a$34.$0,(Journal.debug(e$4),Concurrency.Return({
@@ -3600,7 +3600,7 @@
    sayRandom(NLG.waitRetrievePhrases(),"user name");
    Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getUser:-608983741",[u]),function(a$28)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getUser:1542120022",[u]),function(a$28)
     {
      var user,b$2;
      return a$28==null?(say((function($17)
@@ -3638,9 +3638,9 @@
       }
      })),Concurrency.Zero()):(user=a$28.$0,(sayRandom(NLG.helloUserPhrases(),user.Name),add("user",u),Concurrency.Start((b$2=null,Concurrency.Delay(function()
      {
-      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.updateUserLastLogin:-431785098",[user.Name]),function()
+      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.updateUserLastLogin:1605240829",[user.Name]),function()
       {
-       return user.LastLoggedIn!=null?Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.humanize:-2146862847",[user.LastLoggedIn.$0]),function(a$29)
+       return user.LastLoggedIn!=null?Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.humanize:-1510820869",[user.LastLoggedIn.$0]),function(a$29)
        {
         say((function($17)
         {
@@ -3686,7 +3686,7 @@
    Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
     sayRandom(NLG.waitAddPhrases(),"user");
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addUser:394658258",[u]),function(a$28)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addUser:803056216",[u]),function(a$28)
     {
      return a$28.$==1?(ClientExtensions.error((((Runtime.Curried3(function($17,$18,$19)
      {
@@ -3741,7 +3741,7 @@
    addUser($4);
   }):m.$==1&&(a$16=User$1(m.$0),a$16!=null&&a$16.$==1&&(a$17=NLU$1.Intent$1("hello",a$16.$0),a$17!=null&&a$17.$==1&&(a$17.$0[0]==null&&(a$18=NLU$1.Entity1Of1("name",a$17.$0[1]),a$18!=null&&a$18.$==1&&(m.$1.$==0&&($5=a$18.$0,true))))))?Concurrency.Start((b=null,Concurrency.Delay(function()
   {
-   return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getUser:-608983741",[$5.get_Value()]),function(a$28)
+   return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getUser:1542120022",[$5.get_Value()]),function(a$28)
    {
     return a$28==null?(say((function($17)
     {
@@ -4282,7 +4282,7 @@
          a=Text.DebugEntities(command);
          return a!=null&&a.$==1?(e$1=a.$0,Client.CUI().Wait((b=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:-470867473",[e$1]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:1665379975",[e$1]),function(a$13)
           {
            var entities;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(entities=a$13.$0,Concurrency.Combine(Concurrency.For(entities,function(a$14)
@@ -4313,7 +4313,7 @@
           });
          })))):(a$1=Text.DebugLemmas(command),a$1!=null&&a$1.$==1?(e$2=a$1.$0,Client.CUI().Wait((b$1=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:-1751191293",[e$2]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:-1235351537",[e$2]),function(a$13)
           {
            var lemmas;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(lemmas=a$13.$0,Concurrency.Combine(Concurrency.For(lemmas,function(a$14)
@@ -4344,7 +4344,7 @@
           });
          })))):(a$2=Text.DebugTriples(command),a$2!=null&&a$2.$==1?(dt=a$2.$0,Client.CUI().Wait((b$2=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:1136053015",[dt]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:-794998298",[dt]),function(a$13)
           {
            var c;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(c=a$13.$0,Concurrency.Combine(Concurrency.For(c,function(a$14)
@@ -4381,7 +4381,7 @@
           });
          })))):(a$3=Text.DebugEmotionalTraits(command),a$3!=null&&a$3.$==1?(et=a$3.$0,Client.CUI().Wait((b$3=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:1355646337",[et]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:-411028893",[et]),function(a$13)
           {
            var t;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
@@ -4412,7 +4412,7 @@
           });
          })))):(a$4=Text.DebugBehavioralTraits(command),a$4!=null&&a$4.$==1?(bt=a$4.$0,Client.CUI().Wait((b$4=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:-1558059697",[bt]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:-1221281804",[bt]),function(a$13)
           {
            var t;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)

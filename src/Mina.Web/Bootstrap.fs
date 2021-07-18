@@ -11,7 +11,7 @@ module Resources =
     open WebSharper.Core.Resources
     
     type CSS() =
-        inherit BaseResource("https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css", "bootstrap.min.css")
+        inherit BaseResource("", "bootstrap.flatlyv4.min.css")
     type PopperJS() =
         inherit BaseResource("https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd", "popper.min.js")
     type JS() =
@@ -42,15 +42,7 @@ module Bs =
         ]
     let btnPrimaryDropdown label labels onclicks = btnDropdown "btn-primary" label labels onclicks
     let btnSecondaryDropdown label labels onclicks = btnDropdown "btn-secondary" label labels onclicks
-    //let btnPrimary label onclick = button [reid "btn"; cls "btn btn-primary"; on.click onclick] [text label]
-    //let btnSecondary label onclick = button [reid "btn"; cls "btn btn-secondary"; on.click onclick] [text label]
-    //let btnSuccess label onclick = button [reid "btn"; cls "btn btn-success"; on.click onclick] [text label]
-    //let btnDanger label onclick = button [reid "btn"; cls "btn btn-danger"; on.click onclick] [text label]
-    //let btnWarning label onclick = button [reid "btn"; cls "btn btn-warning"; on.click onclick] [text label]
-    //let btnInfo label onclick = button [reid "btn"; cls "btn btn-info"; on.click onclick] [text label]
-    //let btnLight label onclick = button [reid "btn"; cls "btn btn-light"; on.click onclick] [text label]
-    //let btnDark label onclick = button [reid "btn"; cls "btn btn-dark"; on.click onclick] [text label]
-
+    
     let input lbl extras (target, labelExtras, targetExtras) =
         div (cls "form-group" :: extras) [
             label labelExtras [text lbl]
