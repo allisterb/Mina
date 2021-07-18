@@ -262,7 +262,7 @@ module Client =
             Options(
                 Name="Main", 
                 Greetings = "Welcome to Mina. Enter 'hello' or 'hello my name is...(you) to initialize speech.",
-                Prompt =">"
+                Prompt ="&#x1f4ac;  "                
             )       
         Interpreter(main', (main, mainOpt))
     
@@ -273,9 +273,8 @@ module Client =
         let push (m:Utterance) = Utterances.Push m; Dialogue
         
         CUI.EchoDoc <| Doc.Concat [
-            Bs.btnSuccess "hello" (fun _ _ -> initMic(main');initSpeech();quick_utter "greet" |> push |> Mina.Web.Main.update)
+            Bs.btnPrimary "hello" (fun _ _ -> initMic(main');initSpeech();quick_utter "greet" |> push |> Mina.Web.Main.update)
             Html.text "     "
-            Bs.btnPrimary "help" (fun _ _ -> initMic(main');initSpeech();quick_utter "help" |> push |> Mina.Web.Main.update)
+            Bs.btnInfo "help" (fun _ _ -> initMic(main');initSpeech();quick_utter "help" |> push |> Mina.Web.Main.update)
         ]
-
         Doc.Empty

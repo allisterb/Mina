@@ -59,7 +59,7 @@ module User =
         let (|Response'|_|) = Dialogue.(|Response'_|_|) d
        
         let user():User = prop "user"
-        let triggerJournal = Dialogue.trigger d debug Journal.update
+        let triggerTests = Dialogue.trigger d debug Tests.update
 
         (* User functions *)
         let switchUserQuestion u = Question("switchUser", name, Verification ((fun _ -> trigger "verify" "yes"), (fun _ -> trigger "reject" "no")), None, fun _ -> say <| sprintf "Do you want me to switch to the user %s" u)
@@ -69,26 +69,17 @@ module User =
             async { 
                 match! Server.getUser u with 
                 | Some user ->
+                    do! Server.updateUserLastLogin user.Name |> Async.Ignore
                     sayRandom helloUserPhrases user.Name
-                    add "user" u
-                    async {
-                        do! Server.updateUserLastLogin user.Name |> Async.Ignore
-                        if Option.isSome user.LastLoggedIn then 
-                            let! h = Server.humanize user.LastLoggedIn.Value
-                            say <| sprintf "You last logged in %s." h
-                    } |> Async.Start
-                    echo "Click one of the buttons below to get more help."
+                    add "user" u                    
+                    if Option.isSome user.LastLoggedIn then 
+                        let! h = Server.humanize user.LastLoggedIn.Value
+                        say <| sprintf "You last logged in %s." h
                     doc <| Doc.Concat [
-                        Bs.btnPrimary "new" (fun _ _ -> trigger "new" "new")
+                        Bs.btnPrimary "tests" (fun _ _ -> triggerTests "list_test_categories" "list_test_categories")
                         Html.text "     "
-                        Bs.btnSuccess "query" (fun _ _ -> trigger "query" "query")
-                        Html.text "     "
-                        Bs.btnInfo "options" (fun _ _ -> trigger "options" "medication_journal")
-                        Html.text "     "
-                        Bs.btnPrimary "help" (fun _ _ -> trigger "help" "help")
+                        Bs.btnInfo "help" (fun _ _ -> trigger "help" "help")
                     ]
-                    say "Click on one of the buttons to get more help"
-
                 | None _ -> 
                     say <| sprintf "I did not find a user with the name %s." u
                     Question("addUser", name, Verification ((fun _ -> trigger "verify" "yes"), (fun _ -> trigger "reject" "no")), None, fun _ -> add "addUser" u; say <| sprintf "Do you want me to add the user %s?" u) |> ask
@@ -133,15 +124,7 @@ module User =
             say <| sprintf "Ok I switched to user %A." user  
         | No(Response "switchUser" (_, _, PStr user))::[] -> 
             say <| sprintf "Ok I did not switch to user %s." user
-        
-        | User(Intent "new" _)::[] 
-        | User(Intent "query" _)::[]
-        | User(Intent "medication_journal" _)::[] -> Journal.update d
-
-        | User(Intent "new" _)::[] -> ()
-        | User(Intent "query" _)::[]
-        | User(Intent "option" _)::[] -> Journal.update d
-        
+                
         | _ -> didNotUnderstand()
 
         Dialogue.debugInterpreterEnd d debug name

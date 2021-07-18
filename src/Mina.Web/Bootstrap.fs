@@ -11,7 +11,7 @@ module Resources =
     open WebSharper.Core.Resources
     
     type CSS() =
-        inherit BaseResource("", "bootstrap.flatlyv4.min.css")
+        inherit BaseResource("bootstrap.flatlyv4.min.css")
     type PopperJS() =
         inherit BaseResource("https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd", "popper.min.js")
     type JS() =
@@ -69,10 +69,11 @@ module Bs =
             ]
         ]
 
-    let Radio lbl extras (target, labelExtras, targetExtras) =
+    let radio lbl extras (target, labelExtras, targetExtras) =
         div (cls "radio" :: extras) [
             label labelExtras [
                 Doc.Radio targetExtras true target
                 text lbl
             ]
         ]
+

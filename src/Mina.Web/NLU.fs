@@ -338,27 +338,16 @@ module NLU =
                                 |> Seq.concat
                                 |> List.ofSeq
                             else []
-                        debug "NLU" <| sprintf "Utterance: %A " (Utterance'(sentence, intents, entities, traits))
-                        m (Some(Utterance'(sentence, intents, entities, traits)))
+                        let utterance = Utterance'(sentence, intents, entities, traits)
+                        debug "NLU" <| sprintf "Utterance: %A " utterance
+                        m <| Some utterance
                 ))
                 (Action<JQuery.JqXHR, string, string>( 
                     fun _ s e ->  
                         error <| sprintf  "Wit.ai returned: %A %A" s e
-                        m (None)
+                        m None
                 ))
 
-        let getUtterance2 sentence = 
-            async {
-                let! m = Witai.getMeaning2 "W2WAT2D6U634KSKMR44NWFHJWQAVLVV3" sentence
-                debug "NLU" <| sprintf "Wit.ai returned %A " m.entities
-                let intents = m.intents |> Array.map(fun a -> Intent'(a.name, a.confidence)) |> List.ofArray
-                let entities = m.entities |> Map.toSeq |> Seq.map snd |> Seq.concat |> List.ofSeq |> List.map(fun e -> Entity'(e.name, e.confidence, e.role, e.value))
-                let traits = m.traits |> Map.toSeq |> Seq.map(fun t -> let t' = snd t in Trait'(fst t, t'.[0].confidence, t'.[0].value)) |> List.ofSeq                
-                let u = Utterance'(sentence, intents, entities, traits)
-                debug "NLU" <| sprintf "Utterance %A " u
-                return u
-            }
- 
         let mutable intentConfidenceThreshold = 0.85f
 
         let mutable entityConfidenceThreshold = 0.85f

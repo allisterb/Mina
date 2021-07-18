@@ -20,6 +20,7 @@
     <Compile Include="Questions.fs" />
     <Compile Include="Symptoms.fs" />
     <Compile Include="Journal.fs" />
+    <Compile Include="Tests.fs" />
     <Compile Include="User.fs" />
     <Compile Include="Main.fs" />
     <Compile Include="Client.fs" />

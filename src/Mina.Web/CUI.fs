@@ -71,7 +71,7 @@ module CUI =
                    
          member x.EchoDoc (d:Doc) =
            let i =  JQuery(".terminal-output").Get().[0].ChildNodes.Length
-           div [] [d] |> Doc.RunAppend (terminalOutput())
+           div [attr.style "margin-bottom:1em"] [d] |> Doc.RunAppend (terminalOutput())
 
          member x.SayAngry m =
            async {
@@ -98,6 +98,14 @@ module CUI =
                  let voices = voices' |> toArray    
                  sprintf "There are currently %i voices installed on this computer or device." voices.Length |> x.Say
                  voices |> Array.iteri (fun i v -> sprintf "Voice %i. Name: %s, Local: %A." i v.Name v.LocalService |> x.Say)
+
+         member x.ListMenuItems(items:string list) (trigger:string->string->unit) =
+            let width = sprintf "width:%iem" <| (+) 5 (items |> List.map(fun s -> s.Length) |> List.max)  
+            x.EchoDoc <| div [cls "list-group"; attr.style width] (items |> List.mapi(fun i s -> 
+                    let i' = string (i + 1) in 
+                    a [cls "list-group-item list-group-item-action"; href "#"; on.click(fun _ _ -> trigger i' i')] [span [cls "badge bg-light rounded-pill"][text i']; text s]))                
+            
+
 
 
 
