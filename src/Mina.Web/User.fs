@@ -55,6 +55,8 @@ module User =
         let (|PropNotSet|_|) = Dialogue.(|PropNotSet_|_|) d
         let (|User|_|) = Dialogue.(|User_|_|) d
         let (|User'|_|) = Dialogue.(|User'_|_|) d
+        let (|Intent|_|) = Dialogue.(|Intent_|_|) d
+        let (|Intent'|_|) = Dialogue.(|Intent'_|_|) d
         let (|Response|_|) = Dialogue.(|Response_|_|) d
         let (|Response'|_|) = Dialogue.(|Response'_|_|) d
        
@@ -103,16 +105,16 @@ module User =
         match Dialogue.frame utterances with
         
         (* User login *)
-        | User'(Intent "greet" (_, Entity1OfAny "name" u))::[]
-        | User'(Intent "greet" (_, Entity1OfAny "contact" u))::[]-> handle "loginUser" (fun _ -> loginUser u.Value)
-        | User'(Intent "hello" (_, Entity1OfAny "contact" u))::[] -> handle "loginUser" (fun _ -> loginUser u.Value)
+        | Intent' "greet" (_, Entity1OfAny "name" u)::[]
+        | Intent' "greet" (_, Entity1OfAny "contact" u)::[]-> handle "loginUser" (fun _ -> loginUser u.Value)
+        | Intent' "hello" (_, Entity1OfAny "contact" u)::[] -> handle "loginUser" (fun _ -> loginUser u.Value)
         
         (* User add *)
         | No(Response' "addUser" (_, _, PStr u))::[] -> endt "addUser" (fun _ -> say <| sprintf "Ok I did not add the user %s. But you must login for me to help you." u)
         | Yes(Response' "addUser" (_, _, PStr u))::[] -> endt "addUser" (fun _ -> addUser u)
         
         (* User switch *)
-        | User(Intent "hello" (None, Entity1Of1 "name" u))::[] -> 
+        | Intent "greet" (None, Entity1Of1 "name" u)::[] -> 
             async {
                 match! Server.getUser u.Value with
                 | Some user -> switchUserQuestion user.Name |> ask

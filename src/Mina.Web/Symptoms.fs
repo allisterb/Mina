@@ -51,6 +51,7 @@ module Symptoms =
         let (|PropNotSet|_|) = Dialogue.(|PropNotSet_|_|) d
         let (|User|_|) = Dialogue.(|User_|_|) d
         let (|User'|_|) = Dialogue.(|User'_|_|) d
+        let (|Intent|_|) = Dialogue.(|Intent_|_|) d
         let (|Response|_|) = Dialogue.(|Response_|_|) d
         let (|Response'|_|) = Dialogue.(|Response'_|_|) d
        
@@ -78,6 +79,7 @@ module Symptoms =
 
         (* Symptoms *)
 
+(*
         | User(Intent "symptom" (_, Entity1OfAny "symptom_name" s))::[] ->
             async {
                 say "Ok I'll add that entry to your symptom journal"
@@ -87,12 +89,12 @@ module Symptoms =
                 //ask "painVideo" ""
             } 
             |> Async.Start
-
+            *)
         | Yes(Response "painVideo"(_, _, _))::[] -> cui.EchoHtml'("""<iframe width="560" height="315" src="https://www.youtube.com/embed/SkAqOditKN0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>""")
             
         (* Meds *)
 
-        | User(Intent "medjournal" (_, Some en))::[] ->
+        | Intent "medjournal" (_, Some en)::[] ->
             say "ok I added that entry to your medication journal."
             say "You should be careful not to take too many painkillers over a short period of time."
 

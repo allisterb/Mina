@@ -81,7 +81,11 @@ module Questions =
                 Bs.btnSecondary "No" (fun _ _ -> d.Cui.Term.Enable();r()) 
             ]
             d.Cui.Term.Disable()
+        | Menu(l, t) ->
+            d.Cui.ListMenuItems l t
         | WritingPrompt _ -> ()
         | _ -> ()
+
+    let menu (d:Dialogue) m n c (p:string) t = Question (n, m, Menu(c, t), None, fun _ -> d.Cui.EchoHtml' p; d.Cui.Say p)
 
 

@@ -9,6 +9,7 @@
     <Compile Include="ClientExtensions.fs" />
     <Compile Include="Authentication.fs" />
     <Compile Include="Bootstrap.fs" />
+    <Compile Include="JQueryPlugins.fs" />
     <Compile Include="Witai.fs" />
     <Compile Include="BabelNet.fs" />
     <Compile Include="NLG.fs" />
@@ -28,6 +29,8 @@
     <Compile Include="Startup.fs" />
     <Content Update="wwwroot\Main.html" CopyToPublishDirectory="Always" />
     <Content Update="wwwroot\bootstrap.flatlyv4.min.css" CopyToPublishDirectory="Always" />
+    <Content Update="wwwroot\asPieProgress.min.css" CopyToPublishDirectory="Always" />
+    <Content Update="wwwroot\jquery-asPieProgress.min.js" CopyToPublishDirectory="Always" />
     <Content Update="wwwroot\Style.css" CopyToPublishDirectory="Always" />
     <Content Update="wwwroot\microphone\css\microphone.min.css" CopyToPublishDirectory="Always" />
     <Content Update="wwwroot\microphone\js\*.*" CopyToPublishDirectory="Always" />

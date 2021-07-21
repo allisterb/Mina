@@ -53,6 +53,7 @@ module Journal =
         let (|PropNotSet|_|) = Dialogue.(|PropNotSet_|_|) d
         let (|User|_|) = Dialogue.(|User_|_|) d
         let (|User'|_|) = Dialogue.(|User'_|_|) d
+        let (|Intent|_|) = Dialogue.(|Intent_|_|) d
         let (|Response|_|) = Dialogue.(|Response_|_|) d
         let (|Response'|_|) = Dialogue.(|Response'_|_|) d
        

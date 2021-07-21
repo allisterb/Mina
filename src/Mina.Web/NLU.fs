@@ -43,7 +43,7 @@ module NLU =
 
     let quick_number (n:int) = Utterance("", Some (Intent("questionresponse", Some 1.0f)), None, Some([Entity("wit/ordinal", "", n.ToString(), Some 1.0f)]))
 
-    let (|Intent|_|) n :Utterance -> Utterance' option= 
+    let (|Intent_|_|) n :Utterance -> Utterance' option= 
         function
         | m when m.Intent.IsSome && m.Intent.Value.Name = n -> (m.Traits, m.Entities) |> Some
         | _ -> None
@@ -76,12 +76,12 @@ module NLU =
         
     let (|Yes|_|) :Utterance -> Utterance option= 
         function 
-        | Intent "verify" (None, None) as m -> Some m
+        | Intent_ "verify" (None, None) as m -> Some m
         |  _ -> None
 
     let (|No|_|) :Utterance -> Utterance option= 
         function 
-        | Intent "reject" (None, None) as m -> Some m
+        | Intent_ "reject" (None, None) as m -> Some m
         |  _ -> None
     
     let (|PStr|_|) : obj option -> string option =
@@ -100,15 +100,15 @@ module NLU =
 
     let (|Number|_|) :Utterance -> int option= 
         function 
-        | Intent "1" (None, None) 
-        | Intent "2" (None, None)
-        | Intent "3" (None, None) 
-        | Intent "4" (None, None) 
-        | Intent "5" (None, None) 
-        | Intent "6" (None, None)
-        | Intent "7" (None, None)
-        | Intent "8" (None, None)
-        | Intent "9" (None, None) as m -> Some (Int32.Parse(m.Intent.Value.Name))
+        | Intent_ "1" (None, None) 
+        | Intent_ "2" (None, None)
+        | Intent_ "3" (None, None) 
+        | Intent_ "4" (None, None) 
+        | Intent_ "5" (None, None) 
+        | Intent_ "6" (None, None)
+        | Intent_ "7" (None, None)
+        | Intent_ "8" (None, None)
+        | Intent_ "9" (None, None) as m -> Some (Int32.Parse(m.Intent.Value.Name))
         |  _ -> None
 
     [<RequireQualifiedAccess>]

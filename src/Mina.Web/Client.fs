@@ -39,6 +39,12 @@ module Client =
         AudioHandlers = new Dictionary<string, Int16Array->unit>()
         TypingDNA = new TypingDNA()
     }
+    let avatarBox = JS.Document.GetElementById("avatar-avatarbox")
+    let profileBox = JS.Document.GetElementById("sidebar")
+    profileBox.AppendChild(avatarBox) |> ignore
+    JQueryPieProgress.enable (JS.Document.GetElementById("pp1")) ({ns= "pie_progress"; Goal=1; Min=0; Max=1000; Speed=200;Easing="linear"})
+    JQueryPieProgress.start(JS.Document.GetElementById("pp1"))
+    //JQuery.JQuery("ppa1").
     let mutable MicState = MicNotInitialized
     let mutable ClientState = ClientNotInitialzed
     let cui() = CUI
@@ -262,7 +268,7 @@ module Client =
             Options(
                 Name="Main", 
                 Greetings = "Welcome to Mina. Enter 'hello' or 'hello my name is...(you) to initialize speech.",
-                Prompt ="&#x1f4ac;  "                
+                Prompt = "&#x2328; " //&#x1f4ac;
             )       
         Interpreter(main', (main, mainOpt))
     

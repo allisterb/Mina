@@ -26,6 +26,7 @@ and
     [<JavaScript>] QuestionType =
     | UserAuthentication of string
     | Verification of (unit->unit) * (unit->unit)
+    | Menu of string list * (string -> string -> unit)
     | WritingPrompt of string list * (int->unit)
     | Disjunctive 
     | ConceptCompletion 
@@ -146,6 +147,16 @@ module Dialogue =
          function
          | PropNotSet_ d "user" m when d.DialogueQuestions.Count = 0 -> Some m
          | _ -> None
+    
+    let (|Intent_|_|) d n :Utterance -> Utterance' option= 
+        function
+        | PropSet_ d "user" m when m.Intent.IsSome && m.Intent.Value.Name = n -> (m.Traits, m.Entities) |> Some
+        | _ -> None
+
+    let (|Intent'_|_|) d n :Utterance -> Utterance' option= 
+        function
+        | PropNotSet_ d "user" m when m.Intent.IsSome && m.Intent.Value.Name = n -> (m.Traits, m.Entities) |> Some
+        | _ -> None
 
     let (|Form|_|) (d:Dialogue) (n:string) :Utterance -> Utterance option =
          function

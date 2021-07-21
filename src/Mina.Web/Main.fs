@@ -58,6 +58,8 @@ module Main =
         let (|PropNotSet|_|) = Dialogue.(|PropNotSet_|_|) d
         let (|User|_|) = Dialogue.(|User_|_|) d
         let (|User'|_|) = Dialogue.(|User'_|_|) d
+        let (|Intent|_|) = Dialogue.(|Intent_|_|) d
+        let (|Intent'|_|) = Dialogue.(|Intent'_|_|) d
         let (|Response|_|) = Dialogue.(|Response_|_|) d
         let (|Response'|_|) = Dialogue.(|Response'_|_|) d
         
@@ -75,7 +77,12 @@ module Main =
             debug <| sprintf "Agenda is %A." (d.DialogueQuestions.Peek())
             User.update d
 
+        | Agenda Tests.name -> 
+            debug <| sprintf "Agenda is %A." (d.DialogueQuestions.Peek())
+            Tests.update d
+
         (* Help *)
+        | Intent' "help" _::[]
         | Intent "help" _::[] ->
             say "The following commands are available."
             echo "The following commands are available:"
@@ -84,23 +91,23 @@ module Main =
         
         
         (* Greet *)
-        | Start(User'(Intent "greet" (_, None)))::[] ->  
+        | Start(Intent' "greet" (_, None))::[] ->  
                 add "started" true
                 handle "greet" (fun _ -> sayRandom' helloPhrases)
 
-        | User'(Intent "greet" (_, None))::[] -> handle "greet" (fun _ -> say "Hello, tell me your name to get started.")
+        | Intent' "greet" (_, None)::[] -> handle "greet" (fun _ -> say "Hello, tell me your name to get started.")
           
         (* Dispatch *)
         
         (* User login *)
-        | User'(Intent "greet" (_, Entity1Of1 "name" _))::[] -> dispatch User.name User.update
-        | User'(Intent "hello" (_, Entity1Of1 "contact" _))::[] -> dispatch User.name User.update
-        | User'(Intent "greet" (_, Entity1OfAny "name" u))::[]
-        | User'(Intent "greet" (_, Entity1OfAny "contact" u))::[]-> dispatch User.name User.update
+        | Intent' "greet" (_, Entity1Of1 "name" _)::[] -> dispatch User.name User.update
+        | Intent' "hello" (_, Entity1Of1 "contact" _)::[] -> dispatch User.name User.update
+        | Intent' "greet" (_, Entity1OfAny "name" u)::[]
+        | Intent' "greet" (_, Entity1OfAny "contact" u)::[]-> dispatch User.name User.update
        
 
         (* Journal entry *)
-        | User(Intent "journal" _)::[] -> dispatch Journal.name Journal.update
+        | Intent "journal" _::[] -> dispatch Journal.name Journal.update
 
         | _ -> didNotUnderstand()
 

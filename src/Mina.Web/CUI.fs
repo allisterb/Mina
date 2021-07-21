@@ -100,10 +100,10 @@ module CUI =
                  voices |> Array.iteri (fun i v -> sprintf "Voice %i. Name: %s, Local: %A." i v.Name v.LocalService |> x.Say)
 
          member x.ListMenuItems(items:string list) (trigger:string->string->unit) =
-            let width = sprintf "width:%iem" <| (+) 5 (items |> List.map(fun s -> s.Length) |> List.max)  
+            let width =  items |> List.map(fun s -> s.Length) |> List.max  |> sprintf "width:%iem"
             x.EchoDoc <| div [cls "list-group"; attr.style width] (items |> List.mapi(fun i s -> 
-                    let i' = string (i + 1) in 
-                    a [cls "list-group-item list-group-item-action"; href "#"; on.click(fun _ _ -> trigger i' i')] [span [cls "badge bg-light rounded-pill"][text i']; text s]))                
+                let i' = string (i + 1) in 
+                a [cls "list-group-item list-group-item-action"; href "#"; on.click(fun _ _ -> trigger i' i')] [span [cls "badge bg-light rounded-pill"][text i']; text s]))                
             
 
 
