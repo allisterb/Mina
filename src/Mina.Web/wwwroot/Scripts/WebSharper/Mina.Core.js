@@ -1,8 +1,7 @@
-(function()
+(function(Global)
 {
  "use strict";
- var Global,Mina,Models,Sex,Address,Name,User,Patient,SymptomEntry,IntelliFactory,Runtime;
- Global=self;
+ var Mina,Models,Sex,Address,Name,User,Patient,SymptomEntry,IntelliFactory,Runtime;
  Mina=Global.Mina=Global.Mina||{};
  Models=Mina.Models=Mina.Models||{};
  Sex=Models.Sex=Models.Sex||{};
@@ -73,4 +72,4 @@
    Location:Location
   };
  };
-}());
+}(self));

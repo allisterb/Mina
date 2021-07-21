@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="WebSharper" Version="4.6.7.408" />
-    <PackageReference Include="WebSharper.FSharp" Version="4.6.7.408" />
+    <PackageReference Include="WebSharper" Version="5.0.0.54-preview1" />
+    <PackageReference Include="WebSharper.FSharp" Version="5.0.0.54-preview1" />
   </ItemGroup>
 
 </Project>

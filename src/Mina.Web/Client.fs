@@ -42,7 +42,13 @@ module Client =
     let avatarBox = JS.Document.GetElementById("avatar-avatarbox")
     let profileBox = JS.Document.GetElementById("sidebar")
     profileBox.AppendChild(avatarBox) |> ignore
-    JQueryPieProgress.enable (JS.Document.GetElementById("pp1")) ({ns= "pie_progress"; Goal=1; Min=0; Max=1000; Speed=200;Easing="linear"})
+    JQueryPieProgress.enable (JS.Document.GetElementById("pp1")) ({ns= "pie_progress"; Goal=0; First=120;Min=0; Max=120; Speed=1200;Easing="linear";NumberCallback = Defined (fun n -> 
+        let minutes = int <| System.Math.Floor(float (JS.this?now) / 60.);
+        let seconds = int <| JS.this?now % 60.;
+        let min = (string) minutes
+        let sec = if (seconds > 10) then (string) seconds else "0" + (string) seconds
+        min + ": " + sec
+    )})
     JQueryPieProgress.start(JS.Document.GetElementById("pp1"))
     //JQuery.JQuery("ppa1").
     let mutable MicState = MicNotInitialized
@@ -268,7 +274,7 @@ module Client =
             Options(
                 Name="Main", 
                 Greetings = "Welcome to Mina. Enter 'hello' or 'hello my name is...(you) to initialize speech.",
-                Prompt = "&#x2328; " //&#x1f4ac;
+                Prompt = "&#x2328;  " //&#x1f4ac;
             )       
         Interpreter(main', (main, mainOpt))
     

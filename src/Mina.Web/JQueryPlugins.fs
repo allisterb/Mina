@@ -22,6 +22,8 @@ type JQueryPieProgressOptions = {
     ns: string
     [<Name "goal">]
     Goal: int
+    [<Name "first">]
+    First: int
     [<Name "min">]
     Min: int
     [<Name "max">]
@@ -30,6 +32,8 @@ type JQueryPieProgressOptions = {
     Speed: int
     [<Name "easing">]
     Easing: string
+    [<Name "numberCallback">]
+    NumberCallback:Optional<int->string>
 }
         
 [<Require(typeof<JQueryPieProgressResources.CSS>);Require(typeof<JQuery.Resources.JQuery>);Require(typeof<JQueryPieProgressResources.JS>)>]

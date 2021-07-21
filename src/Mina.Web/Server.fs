@@ -327,6 +327,6 @@ module Server =
                 let! r = GoogleHCApi.AnalyzeEntities2("Patient requires MRI on right shoulder to rule out supraspinatus tear.") |> Async.AwaitTask
                 ()
         } |> Async.Start
-        
-        
-        
+
+    [<Rpc>]
+    let test1 (s:string) = System.Threading.Tasks.Task.FromResult(if s.Length > 0 then Ok "foo" else  Error "0") |> Async.AwaitTask
