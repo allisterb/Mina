@@ -83,9 +83,18 @@ module Questions =
             d.Cui.Term.Disable()
         | Menu(l, t) ->
             d.Cui.ListMenuItems l t
+            d.Cui.EchoDoc <| Doc.Concat [
+                Bs.btnInfo "Help" (fun _ _ -> t "help" "help")
+                Html.text "    "
+                Bs.btnSecondary "Cancel" (fun _ _ -> t "cancel" "cancel")
+            ]
+
         | WritingPrompt _ -> ()
         | _ -> ()
 
-    let menu (d:Dialogue) m n c (p:string) t = Question (n, m, Menu(c, t), None, fun _ -> d.Cui.EchoHtml' p; d.Cui.Say p)
+    let menu (d:Dialogue) m n c (p:string) t = Question (n, m, Menu(c, t), None, fun _ -> 
+        d.Cui.EchoHtml' p 
+        d.Cui.Say p
+    )
 
 

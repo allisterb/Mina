@@ -31,7 +31,7 @@ module Client =
             web.Voice <- "cmu-slt";
             web.VoiceMod <- "default";
             web.Width <- if JQuery(JS.Window).Width() <= 479 then 90 else 175
-            web.CreateBox();
+            web.CreateBox()
             web.AddMessage("")
             web.ProcessMessages(0)
             web
@@ -39,18 +39,6 @@ module Client =
         AudioHandlers = new Dictionary<string, Int16Array->unit>()
         TypingDNA = new TypingDNA()
     }
-    let avatarBox = JS.Document.GetElementById("avatar-avatarbox")
-    let profileBox = JS.Document.GetElementById("sidebar")
-    profileBox.AppendChild(avatarBox) |> ignore
-    JQueryPieProgress.enable (JS.Document.GetElementById("pp1")) ({ns= "pie_progress"; Goal=0; First=120;Min=0; Max=120; Speed=1200;Easing="linear";NumberCallback = Defined (fun n -> 
-        let minutes = int <| System.Math.Floor(float (JS.this?now) / 60.);
-        let seconds = int <| JS.this?now % 60.;
-        let min = (string) minutes
-        let sec = if (seconds > 10) then (string) seconds else "0" + (string) seconds
-        min + ": " + sec
-    )})
-    JQueryPieProgress.start(JS.Document.GetElementById("pp1"))
-    //JQuery.JQuery("ppa1").
     let mutable MicState = MicNotInitialized
     let mutable ClientState = ClientNotInitialzed
     let cui() = CUI

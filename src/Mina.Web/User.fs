@@ -66,6 +66,7 @@ module User =
         (* User functions *)
         let switchUserQuestion u = Question("switchUser", name, Verification ((fun _ -> trigger "verify" "yes"), (fun _ -> trigger "reject" "no")), None, fun _ -> say <| sprintf "Do you want me to switch to the user %s" u)
 
+         
         let loginUser u = 
             do sayRandom waitRetrievePhrases "user name"
             async { 

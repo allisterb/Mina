@@ -64,28 +64,51 @@ module Tests =
         let user():User = prop "user"
         let triggerJournal = Dialogue.trigger d debug Journal.update
           
-        let testCategories = ["Psychological"; "Cognitive"; "Neurological"]
+        let testCategories = ["Physical Health Tests"; "Mental Health Tests"; "Cognitive Tests"; "Psychological Tests"]
         
-        let psychologicalTests = ["Beck's Depression Invenory"]
+        let physicalHealthTests = ["Bladder Control Scale"; "Bowel Control Scale"; "Modified Fatigue Impact Scale"; "MOS Pain Effects Scale"; "Sexual Satisfaction Scale"]
+        let mentalHealthTests = ["Mental Health Inventory"; "Modified Social Support Survey"]
+        let cognitiveTests = ["Perceived Deficits Questionnaire"; "Paced Auditory Serial Test"; "Single Digit Modality Test"]
+        let psychologicalTests = ["Beck's Depression Inventory"]
         (* Interpreter logic begins here *)
 
         match Dialogue.frame utterances with        
         
         | Intent "list_test_categories" _::[] -> 
             handle "list_test_categories" (fun _ -> 
-                ask <| menu "menuTestCategories" testCategories "Choose one of the test categories below." trigger
+                ask <| menu "menuTestCategories" testCategories "Choose one of the test categories from the list." trigger
             )
+
+        | Response "menuTestCategories" (Intent "cancel" _,_,_)::[] -> endt "menuTestCategories" (fun _ ->
+            doc <| Doc.Concat [
+                Bs.btnPrimary "tests" (fun _ _ -> trigger "list_test_categories" "list_test_categories")
+                Html.text "     "
+                Bs.btnInfo "help" (fun _ _ -> trigger "help" "help")
+            ]
+          )
         | Response "menuTestCategories" (Number n,_,_)::[] -> 
             endt "menuTestCategories" (fun _ -> 
                 match n with
-                | 1 -> ask <| menu "menuPsychologicalTests" psychologicalTests "Choose a psychological test below." trigger
+                | 1 -> ask <| menu "menuPhysicalHealthTests" physicalHealthTests "Choose a physical health test from the list." trigger
+                | 2 -> ask <| menu "menuMentalHealthTests" mentalHealthTests "Choose a mental health test from the list." trigger
+                | 3 -> ask <| menu "menuCognitiveTests" cognitiveTests "Choose a cognitive test from the list." trigger
+                | 4 -> ask <| menu "menuPsychologicalTests" psychologicalTests "Choose a psychological test from the list." trigger
                 | _ -> say "Choose one of the test categories to see a list of tests available."
             )
-        | Response "menuPsychologicalTestCategories" (Number n,_,_)::[] -> 
-            endt "menuPsychologicalTestCategories" (fun _ -> 
+        
+        | Response "menuPhysicalHealthTests" (Intent "cancel" _,_,_)::[]
+        | Response "menuMentalHealthTests" (Intent "cancel" _,_,_)::[]
+        | Response "menuCognitiveTests" (Intent "cancel" _,_,_)::[]
+        | Response "menuPsychologicalTests" (Intent "cancel" _,_,_)::[]-> 
+            endt "menuCognitiveTests" (fun _ ->
+                ask <| menu "menuTestCategories" testCategories "Choose one of the test categories from the list." trigger
+            )
+
+        | Response "menuCognitiveTests" (Number n,_,_)::[] -> 
+            endt "menuCognitiveTests" (fun _ -> 
                 match n with
-                | 1 -> say "Becks depression inventory"
-                | _ -> say "Select an available psychological test."
+                | a when n > 0 && n <= 4  -> say cognitiveTests.[n - 1]
+                | _ -> say "Choose a cognitive test from the list."
             )
         | Intent "query" _::[]
         | Intent "medication_journal" _::[] -> Journal.update d

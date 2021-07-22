@@ -1,7 +1,7 @@
 (function(Global)
 {
  "use strict";
- var Mina,Web,ClientExtensions,SweetAlert,SC$1,TypingDNA,SaveResponse,UserResponse,VerifyResponse,Bs,SC$2,JQueryPieProgressOptions,NLU,Witai,Utterance,Intent,Entity,Trait,_Utterance,_Value,BabelNet,DisambiguateApiResponse,TokenFragment,CharFragment,NLG,SC$3,NLU$1,Intent$1,Trait$1,Entity$1,Utterance$1,Voice,_Entity,Text,_Utterance$1,_Intent,_Entity$1,_Trait,Domain,SC$4,Knowledge,EmotionalTrait,BehavioralTrait,Relation,Triple,Subject,Verb,Object,ExpertAIEntity,ExpertAILemma,WritingJournlEntry,CUI,MicState,ClientState,Interpreter,CUI$1,Dialogue,Question,QuestionType,DialogueModule,QuestionDialogs,Questions,Symptoms,SC$5,Journal,SC$6,Tests,SC$7,User,SC$8,Main,SC$9,Client,SC$10,Mina$Web_GeneratedPrintf,WebSharper,Arrays,SweetAlert$1,IntelliFactory,Runtime,Operators,UI,Doc,AttrProxy,Client$1,Templates,Utils,console,$,Random,List,AttrModule,Concurrency,Seq,Strings,JavaScript,Pervasives,Numeric,ClientSideJson,Provider,JSON,Collections,Map,SDK,Unchecked,Date,Remoting,AjaxRemotingProvider,Wit,document,Dictionary,Math;
+ var Mina,Web,ClientExtensions,SweetAlert,SC$1,TypingDNA,SaveResponse,UserResponse,VerifyResponse,Bs,SC$2,JQueryPieProgressOptions,NLU,Witai,Utterance,Intent,Entity,Trait,_Utterance,_Value,BabelNet,DisambiguateApiResponse,TokenFragment,CharFragment,NLG,SC$3,NLU$1,Intent$1,Trait$1,Entity$1,Utterance$1,Voice,_Entity,Text,_Utterance$1,_Intent,_Entity$1,_Trait,Domain,SC$4,Knowledge,EmotionalTrait,BehavioralTrait,Relation,Triple,Subject,Verb,Object,ExpertAIEntity,ExpertAILemma,WritingJournlEntry,CUI,MicState,ClientState,Interpreter,CUI$1,Dialogue,Question,QuestionType,DialogueModule,QuestionDialogs,Questions,Symptoms,SC$5,Journal,SC$6,Tests,SC$7,User,SC$8,Main,SC$9,Client,SC$10,Mina$Web_GeneratedPrintf,WebSharper,Arrays,SweetAlert$1,IntelliFactory,Runtime,Operators,UI,Doc,AttrProxy,Client$1,Templates,Utils,console,$,Random,List,AttrModule,Concurrency,Seq,Strings,JavaScript,Pervasives,Numeric,ClientSideJson,Provider,JSON,Collections,Map,SDK,Unchecked,Date,Remoting,AjaxRemotingProvider,Wit,document,Dictionary;
  Mina=Global.Mina=Global.Mina||{};
  Web=Mina.Web=Mina.Web||{};
  ClientExtensions=Web.ClientExtensions=Web.ClientExtensions||{};
@@ -113,7 +113,6 @@
  Wit=Global.Wit;
  document=Global.document;
  Dictionary=Collections&&Collections.Dictionary;
- Math=Global.Math;
  ClientExtensions.getCameraCanvas=function()
  {
   return Global.getCameraCanvas();
@@ -2664,7 +2663,7 @@
  };
  Questions.ask=function(d,debug,q)
  {
-  var m,v,r,o,a;
+  var m,v,r,t;
   DialogueModule.pushq(d,debug,q);
   (q.get_Target())(d);
   m=q.get_Type();
@@ -2685,10 +2684,22 @@
      d.get_Cui().Term.enable();
      return r();
     };
-   })])),d.get_Cui().Term.disable()):m.$==2?(o=d.get_Cui(),a=m.$1,o.ListMenuItems(m.$0,function($1,$2)
+   })])),d.get_Cui().Term.disable()):m.$==2?(t=m.$1,d.get_Cui().ListMenuItems(m.$0,function($1,$2)
    {
-    return(a($1))($2);
-   })):m.$==3?void 0:void 0;
+    return(t($1))($2);
+   }),d.get_Cui().EchoDoc(Doc.Concat([Bs.btnInfo("Help",function()
+   {
+    return function()
+    {
+     return(t("help"))("help");
+    };
+   }),Bs.btnSecondary("Cancel",function()
+   {
+    return function()
+    {
+     return(t("cancel"))("cancel");
+    };
+   })]))):m.$==3?void 0:void 0;
  };
  Symptoms.update=function(d)
  {
@@ -2831,7 +2842,7 @@
    wje=WritingJournlEntry.New("l",Date.now(),writingPrompt,text,triples,lemmas,entities,behaviouralTraits,emotionalTraits);
    Concurrency.Start((b$2=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addWritingJournalEntry:849247876",[wje]),function(a$30)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addWritingJournalEntry:-1715753066",[wje]),function(a$30)
     {
      return a$30.$==1?Concurrency.Zero():Concurrency.Zero();
     });
@@ -2844,7 +2855,7 @@
    return Concurrency.Delay(function()
    {
     add("journalentry_text",e);
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:939927727",[e]),function(a$30)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:1506671370",[e]),function(a$30)
     {
      var triples;
      return a$30.$==1?Concurrency.Return({
@@ -2871,7 +2882,7 @@
       return Concurrency.Zero();
      }),Concurrency.Delay(function()
      {
-      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:2139538089",[e]),function(a$31)
+      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:-700637269",[e]),function(a$31)
       {
        var e$1,lemmas;
        return a$31.$==1?(e$1=a$31.$0,(Journal.debug(e$1),Concurrency.Return({
@@ -2903,7 +2914,7 @@
          return Concurrency.Zero();
         }),Concurrency.Delay(function()
         {
-         return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:471737651",[e]),function(a$32)
+         return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:203955644",[e]),function(a$32)
          {
           var e$2,entities;
           return a$32.$==1?(e$2=a$32.$0,(Journal.debug(e$2),Concurrency.Return({
@@ -2935,7 +2946,7 @@
             return Concurrency.Zero();
            }),Concurrency.Delay(function()
            {
-            return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:1830176103",[e]),function(a$33)
+            return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:2136513959",[e]),function(a$33)
             {
              var e$3,t$1;
              return a$33.$==1?(e$3=a$33.$0,(Journal.debug(e$3),Concurrency.Return({
@@ -2967,7 +2978,7 @@
                return Concurrency.Zero();
               }),Concurrency.Delay(function()
               {
-               return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:296045595",[e]),function(a$34)
+               return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:132220133",[e]),function(a$34)
                {
                 var e$4,t$2;
                 return a$34.$==1?(e$4=a$34.$0,(Journal.debug(e$4),Concurrency.Return({
@@ -3164,10 +3175,17 @@
  };
  Tests.update=function(d)
  {
-  var trigger,endt,ask,testCategories,psychologicalTests,m,$1,$2,$3,a,a$1,$4,a$2,a$3,$5,$6,$7;
+  var trigger,endt,ask,testCategories,physicalHealthTests,mentalHealthTests,cognitiveTests,psychologicalTests,m,$1,$2,$3,a,$4,$5,a$1,a$2,$6,a$3,$7,$8,a$4,a$5,$9,$10,$11;
   function say(t$1)
   {
    DialogueModule.say(d,t$1);
+  }
+  function popq()
+  {
+   DialogueModule.popq(d,function(m$1)
+   {
+    Tests.debug(m$1);
+   });
   }
   function d$1(m$1)
   {
@@ -3189,13 +3207,13 @@
   {
    return Questions.menu(d,"Tests",n,c,p,t$1);
   }
-  function Intent$2(n,a$4)
+  function Intent$2(n,a$6)
   {
-   return DialogueModule.Intent_(d,n,a$4);
+   return DialogueModule.Intent_(d,n,a$6);
   }
-  function Response(n,a$4)
+  function Response(n,a$6)
   {
-   return DialogueModule.Response_(d,n,a$4);
+   return DialogueModule.Response_(d,n,a$6);
   }
   function d$4(m$1)
   {
@@ -3211,28 +3229,40 @@
   {
    Questions.ask(d,d$3,q);
   };
-  testCategories=List.ofArray(["Psychological","Cognitive","Neurological"]);
-  psychologicalTests=List.ofArray(["Beck's Depression Invenory"]);
+  testCategories=List.ofArray(["Physical Health Tests","Mental Health Tests","Cognitive Tests","Psychological Tests"]);
+  physicalHealthTests=List.ofArray(["Bladder Control Scale","Bowel Control Scale","Modified Fatigue Impact Scale","MOS Pain Effects Scale","Sexual Satisfaction Scale"]);
+  mentalHealthTests=List.ofArray(["Mental Health Inventory","Modified Social Support Survey"]);
+  cognitiveTests=List.ofArray(["Perceived Deficits Questionnaire","Paced Auditory Serial Test","Single Digit Modality Test"]);
+  psychologicalTests=List.ofArray(["Beck's Depression Inventory"]);
   m=DialogueModule.frame(d.$4);
   if(m.$==1&&(($2=Intent$2("list_test_categories",m.$0),$2!=null&&$2.$==1)&&m.$1.$==0))
    ((Runtime.Curried(DialogueModule.handle,2,[d,d$4]))("list_test_categories"))(function()
    {
-    ask(menu("menuTestCategories",testCategories,"Choose one of the test categories below.",trigger));
+    ask(menu("menuTestCategories",testCategories,"Choose one of the test categories from the list or enter.",trigger));
    });
   else
-   m.$==1&&(a=Response("menuTestCategories",m.$0),a!=null&&a.$==1&&(a$1=NLU$1.Number(a.$0[0]),a$1!=null&&a$1.$==1&&(m.$1.$==0&&($3=a$1.$0,true))))?(endt("menuTestCategories"))(function()
+   m.$==1&&(a=Response("menuTestCategories",m.$0),a!=null&&a.$==1&&(($4=Intent$2("cancel",a.$0[0]),$4!=null&&$4.$==1)&&m.$1.$==0))?(endt("menuTestCategories"))(popq):m.$==1&&(a$1=Response("menuTestCategories",m.$0),a$1!=null&&a$1.$==1&&(a$2=NLU$1.Number(a$1.$0[0]),a$2!=null&&a$2.$==1&&(m.$1.$==0&&($5=a$2.$0,true))))?(endt("menuTestCategories"))(function()
    {
-    if($3===1)
-     ask(menu("menuPsychologicalTests",psychologicalTests,"Choose a psychological test below.",trigger));
+    if($5===1)
+     ask(menu("menuPhysicalHealthTests",physicalHealthTests,"Choose a physical health test from the list.",trigger));
     else
-     say("Choose one of the test categories to see a list of tests available.");
-   }):m.$==1&&(a$2=Response("menuPsychologicalTestCategories",m.$0),a$2!=null&&a$2.$==1&&(a$3=NLU$1.Number(a$2.$0[0]),a$3!=null&&a$3.$==1&&(m.$1.$==0&&($4=a$3.$0,true))))?(endt("menuPsychologicalTestCategories"))(function()
+     if($5===2)
+      ask(menu("menuMentalHealthTests",mentalHealthTests,"Choose a mental health test from the list.",trigger));
+     else
+      if($5===3)
+       ask(menu("menuCognitiveTests",cognitiveTests,"Choose a cognitive test from the list.",trigger));
+      else
+       if($5===4)
+        ask(menu("menuPsychologicalTests",psychologicalTests,"Choose a psychological test from the list.",trigger));
+       else
+        say("Choose one of the test categories to see a list of tests available.");
+   }):m.$==1&&(a$3=Response("menuCognitiveTests",m.$0),a$3!=null&&a$3.$==1&&(($7=Intent$2("cancel",a$3.$0[0]),$7!=null&&$7.$==1)&&m.$1.$==0))?((endt("menuCognitiveTests"))(popq),ask(menu("menuTestCategories",testCategories,"Choose one of the test categories from the list.",trigger))):m.$==1&&(a$4=Response("menuCognitiveTests",m.$0),a$4!=null&&a$4.$==1&&(a$5=NLU$1.Number(a$4.$0[0]),a$5!=null&&a$5.$==1&&(m.$1.$==0&&($8=a$5.$0,true))))?(endt("menuCognitiveTests"))(function()
    {
-    if($4===1)
-     say("Becks depression inventory");
+    if($8>0&&$8<=4)
+     say(cognitiveTests.get_Item($8-1));
     else
-     say("Select an available psychological test.");
-   }):m.$==1&&(($6=Intent$2("query",m.$0),$6!=null&&$6.$==1)?m.$1.$==0:($7=Intent$2("medication_journal",m.$0),$7!=null&&$7.$==1)&&m.$1.$==0)?Journal.update(d):DialogueModule.didNotUnderstand(d,function(m$1)
+     say("Choose a cognitive test from the list.");
+   }):m.$==1&&(($10=Intent$2("query",m.$0),$10!=null&&$10.$==1)?m.$1.$==0:($11=Intent$2("medication_journal",m.$0),$11!=null&&$11.$==1)&&m.$1.$==0)?Journal.update(d):DialogueModule.didNotUnderstand(d,function(m$1)
    {
     Tests.debug(m$1);
    },Tests.name());
@@ -3349,7 +3379,7 @@
    sayRandom(NLG.waitRetrievePhrases(),"user name");
    Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getUser:1704660172",[u]),function(a$22)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getUser:-982564481",[u]),function(a$22)
     {
      var user;
      return a$22==null?(say((function($8)
@@ -3385,11 +3415,11 @@
         };
        }(Global.id))(u));
       }
-     })),Concurrency.Zero()):(user=a$22.$0,Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.updateUserLastLogin:217748318",[user.Name]),function()
+     })),Concurrency.Zero()):(user=a$22.$0,Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.updateUserLastLogin:2135349633",[user.Name]),function()
      {
       sayRandom(NLG.helloUserPhrases(),user.Name);
       add("user",u);
-      return Concurrency.Combine(user.LastLoggedIn!=null?Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.humanize:1325884240",[user.LastLoggedIn.$0]),function(a$23)
+      return Concurrency.Combine(user.LastLoggedIn!=null?Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.humanize:-77584724",[user.LastLoggedIn.$0]),function(a$23)
       {
        say((function($8)
        {
@@ -3426,7 +3456,7 @@
    Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
     sayRandom(NLG.waitAddPhrases(),"user");
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addUser:-1428025908",[u]),function(a$22)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.addUser:-1830898429",[u]),function(a$22)
     {
      return a$22.$==1?(ClientExtensions.error((((Runtime.Curried3(function($8,$9,$10)
      {
@@ -3488,7 +3518,7 @@
     addUser($4);
    }):m.$==1&&(a$14=DialogueModule.Intent_(d,"greet",m.$0),a$14!=null&&a$14.$==1&&(a$14.$0[0]==null&&(a$15=NLU$1.Entity1Of1("name",a$14.$0[1]),a$15!=null&&a$15.$==1&&(m.$1.$==0&&($5=a$15.$0,true)))))?Concurrency.Start((b=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getUser:1704660172",[$5.get_Value()]),function(a$22)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getUser:-982564481",[$5.get_Value()]),function(a$22)
     {
      return a$22==null?(say((function($8)
      {
@@ -3944,16 +3974,6 @@
   SC$10.$cctor();
   SC$10.MicState=$1;
  };
- Client.profileBox=function()
- {
-  SC$10.$cctor();
-  return SC$10.profileBox;
- };
- Client.avatarBox=function()
- {
-  SC$10.$cctor();
-  return SC$10.avatarBox;
- };
  Client.CUI=function()
  {
   SC$10.$cctor();
@@ -4071,7 +4091,7 @@
          a=Text.DebugEntities(command);
          return a!=null&&a.$==1?(e$1=a.$0,Client.CUI().Wait((b=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:471737651",[e$1]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:203955644",[e$1]),function(a$13)
           {
            var entities;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(entities=a$13.$0,Concurrency.Combine(Concurrency.For(entities,function(a$14)
@@ -4102,7 +4122,7 @@
           });
          })))):(a$1=Text.DebugLemmas(command),a$1!=null&&a$1.$==1?(e$2=a$1.$0,Client.CUI().Wait((b$1=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:2139538089",[e$2]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:-700637269",[e$2]),function(a$13)
           {
            var lemmas;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(lemmas=a$13.$0,Concurrency.Combine(Concurrency.For(lemmas,function(a$14)
@@ -4133,7 +4153,7 @@
           });
          })))):(a$2=Text.DebugTriples(command),a$2!=null&&a$2.$==1?(dt=a$2.$0,Client.CUI().Wait((b$2=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:939927727",[dt]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:1506671370",[dt]),function(a$13)
           {
            var c;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(c=a$13.$0,Concurrency.Combine(Concurrency.For(c,function(a$14)
@@ -4170,7 +4190,7 @@
           });
          })))):(a$3=Text.DebugEmotionalTraits(command),a$3!=null&&a$3.$==1?(et=a$3.$0,Client.CUI().Wait((b$3=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:1830176103",[et]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:2136513959",[et]),function(a$13)
           {
            var t;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
@@ -4201,7 +4221,7 @@
           });
          })))):(a$4=Text.DebugBehavioralTraits(command),a$4!=null&&a$4.$==1?(bt=a$4.$0,Client.CUI().Wait((b$4=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:296045595",[bt]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:132220133",[bt]),function(a$13)
           {
            var t;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
@@ -4284,17 +4304,6 @@
     }
   }
   SC$10.CUI=CUI$1.New(null,null,null,(SDK.applicationId="4277115329081938617",sdk=new Global.SDKConnection(),web=new Global.WebAvatar(),web.version=8.5,web.connection=sdk,web.avatar="20926221",web.voice="cmu-slt",web.voiceMod="default",web.width=$(self).width()<=479?90:175,web.createBox(),web.addMessage(""),web.processMessages(0),web),false,new Dictionary.New$5(),new Global.TypingDNA());
-  SC$10.avatarBox=self.document.getElementById("avatar-avatarbox");
-  SC$10.profileBox=self.document.getElementById("sidebar");
-  Client.profileBox().appendChild(Client.avatarBox());
-  $(self.document.getElementById("pp1")).asPieProgress(JQueryPieProgressOptions.New("pie_progress",0,120,0,120,1200,"linear",function()
-  {
-   var minutes,seconds;
-   minutes=Operators.toInt(Math.floor(this.now/60));
-   seconds=Operators.toInt(this.now%60);
-   return Global.String(minutes)+": "+(seconds>10?Global.String(seconds):"0"+Global.String(seconds));
-  }));
-  $(self.document.getElementById("pp1")).asPieProgress("start");
   SC$10.MicState=MicState.MicNotInitialized;
   SC$10.ClientState=ClientState.ClientNotInitialzed;
   SC$10.Props=new Dictionary.New$5();
