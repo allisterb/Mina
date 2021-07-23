@@ -103,7 +103,7 @@ module CUI =
             let width =  items |> List.map(fun s -> s.Length) |> List.max  |> sprintf "width:%iem"
             x.EchoDoc <| div [cls "list-group"; attr.style width] (items |> List.mapi(fun i s -> 
                 let i' = string (i + 1) in 
-                a [cls "list-group-item list-group-item-action"; href "#"; on.click(fun _ _ -> trigger i' i')] [span [cls "badge bg-light rounded-pill"][text i']; text s]))                
+                a [cls "list-group-item list-group-item-action"; href "javascript:;"; on.click(fun _ _ -> trigger i' i')] [span [cls "badge bg-light rounded-pill"][text i']; text s]))                
             
 
 

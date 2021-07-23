@@ -1,7 +1,7 @@
 (function(Global)
 {
  "use strict";
- var Mina,Web,ClientExtensions,SweetAlert,SC$1,TypingDNA,SaveResponse,UserResponse,VerifyResponse,Bs,SC$2,JQueryPieProgressOptions,NLU,Witai,Utterance,Intent,Entity,Trait,_Utterance,_Value,BabelNet,DisambiguateApiResponse,TokenFragment,CharFragment,NLG,SC$3,NLU$1,Intent$1,Trait$1,Entity$1,Utterance$1,Voice,_Entity,Text,_Utterance$1,_Intent,_Entity$1,_Trait,Domain,SC$4,Knowledge,EmotionalTrait,BehavioralTrait,Relation,Triple,Subject,Verb,Object,ExpertAIEntity,ExpertAILemma,WritingJournlEntry,CUI,MicState,ClientState,Interpreter,CUI$1,Dialogue,Question,QuestionType,DialogueModule,QuestionDialogs,Questions,Symptoms,SC$5,Journal,SC$6,Tests,SC$7,User,SC$8,Main,SC$9,Client,SC$10,Mina$Web_GeneratedPrintf,WebSharper,Arrays,SweetAlert$1,IntelliFactory,Runtime,Operators,UI,Doc,AttrProxy,Client$1,Templates,Utils,console,$,Random,List,AttrModule,Concurrency,Seq,Strings,JavaScript,Pervasives,Numeric,ClientSideJson,Provider,JSON,Collections,Map,SDK,Unchecked,Date,Remoting,AjaxRemotingProvider,Wit,document,Dictionary;
+ var Mina,Web,ClientExtensions,SweetAlert,SC$1,TypingDNA,SaveResponse,UserResponse,VerifyResponse,Bs,SC$2,JQueryPieProgressOptions,NLU,Witai,Utterance,Intent,Entity,Trait,_Utterance,_Value,BabelNet,DisambiguateApiResponse,TokenFragment,CharFragment,NLG,SC$3,NLU$1,Intent$1,Trait$1,Entity$1,Utterance$1,Voice,_Entity,Text,_Utterance$1,_Intent,_Entity$1,_Trait,Domain,SC$4,Knowledge,EmotionalTrait,BehavioralTrait,Relation,Triple,Subject,Verb,Object,ExpertAIEntity,ExpertAILemma,WritingJournlEntry,CUI,MicState,ClientState,Interpreter,CUI$1,Dialogue,Question,QuestionType,DialogueModule,QuestionDialogs,Questions,Symptoms,SC$5,Journal,SC$6,Tests,SC$7,User,SC$8,Main,SC$9,Client,SC$10,Mina$Web_GeneratedPrintf,WebSharper,Arrays,SweetAlert$1,IntelliFactory,Runtime,Operators,UI,Doc,AttrProxy,Client$1,Templates,Utils,console,$,Random,List,AttrModule,Concurrency,Seq,Strings,JavaScript,Pervasives,Numeric,ClientSideJson,Provider,JSON,Collections,Map,SDK,Unchecked,Date,Remoting,AjaxRemotingProvider,Math,Wit,document,Dictionary;
  Mina=Global.Mina=Global.Mina||{};
  Web=Mina.Web=Mina.Web||{};
  ClientExtensions=Web.ClientExtensions=Web.ClientExtensions||{};
@@ -110,6 +110,7 @@
  Date=Global.Date;
  Remoting=WebSharper&&WebSharper.Remoting;
  AjaxRemotingProvider=Remoting&&Remoting.AjaxRemotingProvider;
+ Math=Global.Math;
  Wit=Global.Wit;
  document=Global.document;
  Dictionary=Collections&&Collections.Dictionary;
@@ -1965,7 +1966,7 @@
    {
     var _i;
     _i=Global.String(i+1);
-    return Doc.Element("a",[ClientExtensions.cls("list-group-item list-group-item-action"),ClientExtensions.href("#"),AttrProxy.HandlerImpl("click",function()
+    return Doc.Element("a",[ClientExtensions.cls("list-group-item list-group-item-action"),ClientExtensions.href("javascript:;"),AttrProxy.HandlerImpl("click",function()
     {
      return function()
      {
@@ -2122,7 +2123,7 @@
    this.Term.enable();
   }
  },null,CUI$1);
- CUI$1.ListMenuItems$106$84=function(trigger,_i)
+ CUI$1.ListMenuItems$106$95=function(trigger,_i)
  {
   return function()
   {
@@ -2335,6 +2336,21 @@
   DialogueModule.popu(d,debug);
   DialogueModule.say(d,"Sorry I didn't understand what you meant.");
   !DialogueModule.have(d,"user")?DialogueModule.say(d,"You must login to use most functions in Selma."):void 0;
+ };
+ DialogueModule["endt'"]=function(d,debug,f)
+ {
+  var q;
+  q=(d.get_DialogueQuestions())[0];
+  DialogueModule.popu(d,debug);
+  DialogueModule.popq(d,debug);
+  debug((function($1)
+  {
+   return function($2)
+   {
+    return $1("End turn "+Utils.toSafe($2)+".");
+   };
+  }(Global.id))(q.get_Name()));
+  f();
  };
  DialogueModule.endt=function(d,debug,m,f)
  {
@@ -2670,7 +2686,7 @@
   if(m.$==0)
    QuestionDialogs.userAuthenticationDialog(d,debug,q,m.$0);
   else
-   m.$==1?(v=m.$0,r=m.$1,d.get_Cui().EchoDoc(Doc.Concat([Bs.btnPrimary("Yes",function()
+   m.$==1?(v=m.$0,r=m.$1,d.get_Cui().EchoDoc(Doc.Concat([Doc.TextNode("    "),Bs.btnPrimary("Yes",function()
    {
     return function()
     {
@@ -2693,13 +2709,14 @@
     {
      return(t("help"))("help");
     };
-   }),Bs.btnSecondary("Cancel",function()
+   }),Doc.TextNode("    "),Bs.btnSecondary("Cancel",function()
    {
     return function()
     {
      return(t("cancel"))("cancel");
     };
    })]))):m.$==3?void 0:void 0;
+  self.scrollTo(0,Operators.toInt(self.document.body.scrollHeight));
  };
  Symptoms.update=function(d)
  {
@@ -3175,19 +3192,24 @@
  };
  Tests.update=function(d)
  {
-  var trigger,endt,ask,testCategories,physicalHealthTests,mentalHealthTests,cognitiveTests,psychologicalTests,m,$1,$2,$3,a,$4,$5,a$1,a$2,$6,a$3,$7,$8,a$4,a$5,$9,$10,$11;
+  var cui,handle,trigger,endt,ask,testCategories,physicalHealthTests,mentalHealthTests,cognitiveTests,psychologicalTests,sdmtCharacters,m,$1,$2,$3,a,$4,$5,a$1,a$2,$6,a$3,$7,a$4,$8,a$5,$9,a$6,$10,a$7,$11,a$8,$12,a$9,$13,a$10,$14,a$11,$15,a$12,$16,a$13,$17,a$14,$18,a$15,$19,a$16,$20,a$17,$21,$22,a$18,a$19,$23,$24,$25,a$20,$26,$27,$28,$29,a$21,$30,$31,$32,$33;
+  function echo(t$1)
+  {
+   DialogueModule.echo(d,t$1);
+  }
   function say(t$1)
   {
    DialogueModule.say(d,t$1);
   }
-  function popq()
+  function doc(a$22)
   {
-   DialogueModule.popq(d,function(m$1)
-   {
-    Tests.debug(m$1);
-   });
+   cui.EchoDoc(a$22);
   }
   function d$1(m$1)
+  {
+   Tests.debug(m$1);
+  }
+  function d$2(m$1)
   {
    Tests.debug(m$1);
   }
@@ -3195,11 +3217,11 @@
   {
    Tests.update(d$5);
   }
-  function d$2(m$1)
+  function d$3(m$1)
   {
    Tests.debug(m$1);
   }
-  function d$3(m$1)
+  function d$4(m$1)
   {
    Tests.debug(m$1);
   }
@@ -3207,41 +3229,55 @@
   {
    return Questions.menu(d,"Tests",n,c,p,t$1);
   }
-  function Intent$2(n,a$6)
+  function Intent$2(n,a$22)
   {
-   return DialogueModule.Intent_(d,n,a$6);
+   return DialogueModule.Intent_(d,n,a$22);
   }
-  function Response(n,a$6)
+  function Response(n,a$22)
   {
-   return DialogueModule.Response_(d,n,a$6);
-  }
-  function d$4(m$1)
-  {
-   Tests.debug(m$1);
+   return DialogueModule.Response_(d,n,a$22);
   }
   DialogueModule.debugInterpreterStart(d,function(m$1)
   {
    Tests.debug(m$1);
   },Tests.name());
-  trigger=Runtime.Curried(DialogueModule.trigger,2,[d,d$1,t]);
-  endt=Runtime.Curried(DialogueModule.endt,2,[d,d$2]);
+  cui=d.$0;
+  handle=Runtime.Curried(DialogueModule.handle,2,[d,d$1]);
+  trigger=Runtime.Curried(DialogueModule.trigger,2,[d,d$2,t]);
+  endt=Runtime.Curried(DialogueModule.endt,2,[d,d$3]);
   ask=function(q)
   {
-   Questions.ask(d,d$3,q);
+   Questions.ask(d,d$4,q);
   };
   testCategories=List.ofArray(["Physical Health Tests","Mental Health Tests","Cognitive Tests","Psychological Tests"]);
   physicalHealthTests=List.ofArray(["Bladder Control Scale","Bowel Control Scale","Modified Fatigue Impact Scale","MOS Pain Effects Scale","Sexual Satisfaction Scale"]);
   mentalHealthTests=List.ofArray(["Mental Health Inventory","Modified Social Support Survey"]);
   cognitiveTests=List.ofArray(["Perceived Deficits Questionnaire","Paced Auditory Serial Test","Single Digit Modality Test"]);
   psychologicalTests=List.ofArray(["Beck's Depression Inventory"]);
+  sdmtCharacters=List.ofArray(["\u2540","\u2560","\u2599","\u25ae","\u25b3","\u25c9","\u25e0","\u25f0","\u2593"]);
   m=DialogueModule.frame(d.$4);
   if(m.$==1&&(($2=Intent$2("list_test_categories",m.$0),$2!=null&&$2.$==1)&&m.$1.$==0))
-   ((Runtime.Curried(DialogueModule.handle,2,[d,d$4]))("list_test_categories"))(function()
+   (handle("list_test_categories"))(function()
    {
-    ask(menu("menuTestCategories",testCategories,"Choose one of the test categories from the list or enter.",trigger));
+    ask(menu("menuTestCategories",testCategories,"Choose one of the test categories from the list.",trigger));
    });
   else
-   m.$==1&&(a=Response("menuTestCategories",m.$0),a!=null&&a.$==1&&(($4=Intent$2("cancel",a.$0[0]),$4!=null&&$4.$==1)&&m.$1.$==0))?(endt("menuTestCategories"))(popq):m.$==1&&(a$1=Response("menuTestCategories",m.$0),a$1!=null&&a$1.$==1&&(a$2=NLU$1.Number(a$1.$0[0]),a$2!=null&&a$2.$==1&&(m.$1.$==0&&($5=a$2.$0,true))))?(endt("menuTestCategories"))(function()
+   m.$==1&&(a=Response("menuTestCategories",m.$0),a!=null&&a.$==1&&(($4=Intent$2("cancel",a.$0[0]),$4!=null&&$4.$==1)&&m.$1.$==0))?(endt("menuTestCategories"))(function()
+   {
+    doc(Doc.Concat([Bs.btnPrimary("tests",function()
+    {
+     return function()
+     {
+      return(trigger("list_test_categories"))("list_test_categories");
+     };
+    }),Doc.TextNode("     "),Bs.btnInfo("help",function()
+    {
+     return function()
+     {
+      return(trigger("help"))("help");
+     };
+    })]));
+   }):m.$==1&&(a$1=Response("menuTestCategories",m.$0),a$1!=null&&a$1.$==1&&(a$2=NLU$1.Number(a$1.$0[0]),a$2!=null&&a$2.$==1&&(m.$1.$==0&&($5=a$2.$0,true))))?(endt("menuTestCategories"))(function()
    {
     if($5===1)
      ask(menu("menuPhysicalHealthTests",physicalHealthTests,"Choose a physical health test from the list.",trigger));
@@ -3256,13 +3292,144 @@
         ask(menu("menuPsychologicalTests",psychologicalTests,"Choose a psychological test from the list.",trigger));
        else
         say("Choose one of the test categories to see a list of tests available.");
-   }):m.$==1&&(a$3=Response("menuCognitiveTests",m.$0),a$3!=null&&a$3.$==1&&(($7=Intent$2("cancel",a$3.$0[0]),$7!=null&&$7.$==1)&&m.$1.$==0))?((endt("menuCognitiveTests"))(popq),ask(menu("menuTestCategories",testCategories,"Choose one of the test categories from the list.",trigger))):m.$==1&&(a$4=Response("menuCognitiveTests",m.$0),a$4!=null&&a$4.$==1&&(a$5=NLU$1.Number(a$4.$0[0]),a$5!=null&&a$5.$==1&&(m.$1.$==0&&($8=a$5.$0,true))))?(endt("menuCognitiveTests"))(function()
+   }):m.$==1&&(a$3=Response("menuPhysicalHealthTests",m.$0),a$3!=null&&a$3.$==1?($7=Intent$2("cancel",a$3.$0[0]),$7!=null&&$7.$==1)?m.$1.$==0:(a$4=Response("menuMentalHealthTests",m.$0),a$4!=null&&a$4.$==1?($8=Intent$2("cancel",a$4.$0[0]),$8!=null&&$8.$==1)?m.$1.$==0:(a$5=Response("menuCognitiveTests",m.$0),a$5!=null&&a$5.$==1?($9=Intent$2("cancel",a$5.$0[0]),$9!=null&&$9.$==1)?m.$1.$==0:(a$6=Response("menuPsychologicalTests",m.$0),a$6!=null&&a$6.$==1&&(($10=Intent$2("cancel",a$6.$0[0]),$10!=null&&$10.$==1)&&m.$1.$==0)):(a$7=Response("menuPsychologicalTests",m.$0),a$7!=null&&a$7.$==1&&(($11=Intent$2("cancel",a$7.$0[0]),$11!=null&&$11.$==1)&&m.$1.$==0))):(a$8=Response("menuCognitiveTests",m.$0),a$8!=null&&a$8.$==1?($12=Intent$2("cancel",a$8.$0[0]),$12!=null&&$12.$==1)?m.$1.$==0:(a$9=Response("menuPsychologicalTests",m.$0),a$9!=null&&a$9.$==1&&(($13=Intent$2("cancel",a$9.$0[0]),$13!=null&&$13.$==1)&&m.$1.$==0)):(a$10=Response("menuPsychologicalTests",m.$0),a$10!=null&&a$10.$==1&&(($14=Intent$2("cancel",a$10.$0[0]),$14!=null&&$14.$==1)&&m.$1.$==0)))):(a$11=Response("menuMentalHealthTests",m.$0),a$11!=null&&a$11.$==1?($15=Intent$2("cancel",a$11.$0[0]),$15!=null&&$15.$==1)?m.$1.$==0:(a$12=Response("menuCognitiveTests",m.$0),a$12!=null&&a$12.$==1?($16=Intent$2("cancel",a$12.$0[0]),$16!=null&&$16.$==1)?m.$1.$==0:(a$13=Response("menuPsychologicalTests",m.$0),a$13!=null&&a$13.$==1&&(($17=Intent$2("cancel",a$13.$0[0]),$17!=null&&$17.$==1)&&m.$1.$==0)):(a$14=Response("menuPsychologicalTests",m.$0),a$14!=null&&a$14.$==1&&(($18=Intent$2("cancel",a$14.$0[0]),$18!=null&&$18.$==1)&&m.$1.$==0))):(a$15=Response("menuCognitiveTests",m.$0),a$15!=null&&a$15.$==1?($19=Intent$2("cancel",a$15.$0[0]),$19!=null&&$19.$==1)?m.$1.$==0:(a$16=Response("menuPsychologicalTests",m.$0),a$16!=null&&a$16.$==1&&(($20=Intent$2("cancel",a$16.$0[0]),$20!=null&&$20.$==1)&&m.$1.$==0)):(a$17=Response("menuPsychologicalTests",m.$0),a$17!=null&&a$17.$==1&&(($21=Intent$2("cancel",a$17.$0[0]),$21!=null&&$21.$==1)&&m.$1.$==0)))))?DialogueModule["endt'"](d,function(m$1)
    {
-    if($8>0&&$8<=4)
-     say(cognitiveTests.get_Item($8-1));
+    Tests.debug(m$1);
+   },function()
+   {
+    ask(menu("menuTestCategories",testCategories,"Choose one of the test categories from the list.",trigger));
+   }):m.$==1&&(a$18=Response("menuCognitiveTests",m.$0),a$18!=null&&a$18.$==1&&(a$19=NLU$1.Number(a$18.$0[0]),a$19!=null&&a$19.$==1&&(m.$1.$==0&&($22=a$19.$0,true))))?(endt("menuCognitiveTests"))(function()
+   {
+    if($22===2)
+     {
+      doc(Doc.TextNode("    "));
+      say("You last took this test Monday. You're scheduled to take this test agan this week.");
+      echo("The Paced Auditory Serial Addition Test (PASAT) is a measure of cognitive function that\r\n                          specifically assesses auditory information processing speed and flexibility, as well as calculation ability.");
+      doc(Doc.Concat([Doc.TextNode("     "),Bs.btnPrimary("start",function()
+      {
+       return function()
+       {
+        return(trigger("start_test_pasat"))("start_test_pasat");
+       };
+      }),Doc.TextNode("     "),Bs.btnInfo("about",function()
+      {
+       return function()
+       {
+        return(trigger("about_test_pasat"))("about_test_pasat");
+       };
+      }),Doc.TextNode("     "),Bs.btnSecondary("my history",function()
+      {
+       return function()
+       {
+        return(trigger("history_test_pasat"))("history_test_pasat");
+       };
+      }),Doc.TextNode("     "),Bs.btnDark("cancel",function()
+      {
+       return function()
+       {
+        return(trigger("cancel"))("cancel");
+       };
+      })]));
+     }
     else
-     say("Choose a cognitive test from the list.");
-   }):m.$==1&&(($10=Intent$2("query",m.$0),$10!=null&&$10.$==1)?m.$1.$==0:($11=Intent$2("medication_journal",m.$0),$11!=null&&$11.$==1)&&m.$1.$==0)?Journal.update(d):DialogueModule.didNotUnderstand(d,function(m$1)
+     if($22===3)
+      {
+       doc(Doc.TextNode("    "));
+       say("You last took this test Monday. You're scheduled to take this test agan this week.");
+       echo("The Single Digit Modalities Test (SDMT) is a measure of cognitive function that\r\n                          specifically assesses information processing speed and episodic memory.");
+       doc(Doc.TextNode("     "));
+       doc(Doc.Concat([Bs.btnPrimary("start",function()
+       {
+        return function()
+        {
+         return(trigger("start_test_sdmt"))("start_test_sdmt");
+        };
+       }),Doc.TextNode("     "),Bs.btnInfo("about",function()
+       {
+        return function()
+        {
+         return(trigger("about_test_sdmt"))("about_test_sdmt");
+        };
+       }),Doc.TextNode("     "),Bs.btnSecondary("my history",function()
+       {
+        return function()
+        {
+         return(trigger("history_test_sdmt"))("history_test_sdmt");
+        };
+       }),Doc.TextNode("     "),Bs.btnDark("cancel",function()
+       {
+        return function()
+        {
+         return(trigger("cancel"))("cancel");
+        };
+       })]));
+      }
+     else
+      say("Choose a cognitive test from the list.");
+   }):m.$==1&&(($24=Intent$2("start_test_pasat",m.$0),$24!=null&&$24.$==1)&&m.$1.$==0)?(handle("start_test_pasat"))(function()
+   {
+    say("You are going to hear a seriesof single digit numbers that will be presented at the rate of one every 3 seconds. \r\n                                     Listen for the first two numbers, add them up, and tell me your answer. \r\n                                     When you hear the next number, add it to the one you heard right before it. \r\n                                     Continue to add the next number to each preceding one. Remember you are not being asked to give me a running total, but rather the sum of the last two numbers that you heard.");
+    echo("Listen to the instructions and click the Yes button when ready.");
+    ask(new Question({
+     $:0,
+     $0:"verify_start_test_pasat",
+     $1:Tests.name(),
+     $2:{
+      $:1,
+      $0:function()
+      {
+       (trigger("verify"))("yes");
+      },
+      $1:function()
+      {
+       (trigger("reject"))("no");
+      }
+     },
+     $3:null,
+     $4:function()
+     {
+      say("Are you ready to begin?");
+      echo("Are you ready to begin?");
+     }
+    }));
+   }):m.$==1&&(a$20=NLU$1.Yes(m.$0),a$20!=null&&a$20.$==1&&(($26=Response("verify_start_test_pasat",a$20.$0),$26!=null&&$26.$==1)&&m.$1.$==0))?($("#testprofile").removeClass("invisible"),$("#testprofile-name").text("PASAT"),$(self.document.getElementById("#testprofile-timer")).asPieProgress(JQueryPieProgressOptions.New("pie_progress",0,120,0,120,1200,"linear",function()
+   {
+    var minutes,seconds;
+    minutes=Operators.toInt(Math.floor(this.now/60));
+    seconds=Operators.toInt(this.now%60);
+    return Global.String(minutes)+": "+(seconds>10?Global.String(seconds):"0"+Global.String(seconds));
+   })),$(self.document.getElementById("#testprofile-timer")).asPieProgress("start")):m.$==1&&(($28=Intent$2("start_test_sdmt",m.$0),$28!=null&&$28.$==1)&&m.$1.$==0)?(handle("start_test_sdmt"))(function()
+   {
+    say("SDMT");
+    echo("Listen to the instructions and click the Yes button when ready.");
+    ask(new Question({
+     $:0,
+     $0:"verify_start_test_sdmt",
+     $1:Tests.name(),
+     $2:{
+      $:1,
+      $0:function()
+      {
+       (trigger("verify"))("yes");
+      },
+      $1:function()
+      {
+       (trigger("reject"))("no");
+      }
+     },
+     $3:null,
+     $4:function()
+     {
+      say("Are you ready to begin?");
+     }
+    }));
+   }):m.$==1&&(a$21=NLU$1.Yes(m.$0),a$21!=null&&a$21.$==1&&(($30=Response("verify_start_test_sdmt",a$21.$0),$30!=null&&$30.$==1)&&m.$1.$==0))?($("#testprofile").hasClass("invisible")?$("#testprofile").removeClass("invisible").addClass("visible"):void 0,$("#testprofile-name").text("SDMT"),doc(Doc.Element("table",[ClientExtensions.cls("table table-bordered")],[Doc.Element("thead",[],[Doc.Element("tr",[],List.map(function(c)
+   {
+    return Doc.Element("th",[AttrProxy.Create("scope","col"),AttrProxy.Create("style","font-size:300%;text-align:center")],[Doc.TextNode(c)]);
+   },sdmtCharacters))]),Doc.Element("tbody",[],[Doc.Element("tr",[],List.mapi(function(i)
+   {
+    return Doc.Element("td",[AttrProxy.Create("style","font-size:300%;text-align:center")],[Doc.TextNode(Global.String(i))]);
+   },sdmtCharacters))])])),$(self.document.getElementById("#testprofile-timer")).asPieProgress("start")):m.$==1&&(($32=Intent$2("query",m.$0),$32!=null&&$32.$==1)?m.$1.$==0:($33=Intent$2("medication_journal",m.$0),$33!=null&&$33.$==1)&&m.$1.$==0)?Journal.update(d):DialogueModule.didNotUnderstand(d,function(m$1)
    {
     Tests.debug(m$1);
    },Tests.name());
@@ -3287,7 +3454,7 @@
  };
  User.update=function(d)
  {
-  var props,cui,handle,trigger,endt,ask,triggerTests,m,$1,a,a$1,a$2,a$3,a$4,a$5,$2,a$6,a$7,$3,a$8,a$9,a$10,$4,a$11,a$12,a$13,$5,a$14,a$15,b,$6,a$16,a$17,a$18,$7,a$19,a$20,a$21;
+  var props,cui,handle,trigger,endt,ask,triggerTests,triggerJournal,m,$1,a,a$1,a$2,a$3,a$4,a$5,$2,a$6,a$7,$3,a$8,a$9,a$10,$4,a$11,a$12,a$13,$5,a$14,a$15,b,$6,a$16,a$17,a$18,$7,a$19,a$20,a$21;
   function say(t$1)
   {
    DialogueModule.say(d,t$1);
@@ -3315,9 +3482,9 @@
   {
    User.debug(m$1);
   }
-  function t(d$6)
+  function t(d$7)
   {
-   User.update(d$6);
+   User.update(d$7);
   }
   function d$3(m$1)
   {
@@ -3340,6 +3507,10 @@
    return DialogueModule["Response'_"](d,n,a$22);
   }
   function d$5(m$1)
+  {
+   User.debug(m$1);
+  }
+  function d$6(m$1)
   {
    User.debug(m$1);
   }
@@ -3431,11 +3602,30 @@
        return Concurrency.Zero();
       }):Concurrency.Zero(),Concurrency.Delay(function()
       {
+       $("#profile").removeClass("invisible").addClass("visible");
        doc(Doc.Concat([Bs.btnPrimary("tests",function()
        {
         return function()
         {
          return(triggerTests("list_test_categories"))("list_test_categories");
+        };
+       }),Doc.TextNode("     "),Bs.btnPrimary("symptoms",function()
+       {
+        return function()
+        {
+         return(triggerJournal("symptoms_journal"))("symptoms_journal");
+        };
+       }),Doc.TextNode("     "),Bs.btnPrimary("mood",function()
+       {
+        return function()
+        {
+         return(triggerJournal("mood_journal"))("mood_journal");
+        };
+       }),Doc.TextNode("     "),Bs.btnPrimary("caregiver",function()
+       {
+        return function()
+        {
+         return(triggerJournal("caregiver_journal"))("caregiver_journal");
         };
        }),Doc.TextNode("     "),Bs.btnInfo("help",function()
        {
@@ -3490,9 +3680,13 @@
   {
    Questions.ask(d,d$4,q);
   };
-  triggerTests=Runtime.Curried(DialogueModule.trigger,2,[d,d$5,function(d$6)
+  triggerTests=Runtime.Curried(DialogueModule.trigger,2,[d,d$5,function(d$7)
   {
-   Tests.update(d$6);
+   Tests.update(d$7);
+  }]);
+  triggerJournal=Runtime.Curried(DialogueModule.trigger,2,[d,d$6,function(d$7)
+  {
+   Journal.update(d$7);
   }]);
   m=DialogueModule.frame(d.$4);
   if(m.$==1&&(a=_Intent$1("greet",m.$0),a!=null&&a.$==1?(a$1=NLU$1.Entity1OfAny("name",a.$0[1]),a$1!=null&&a$1.$==1?m.$1.$==0&&($1=a$1.$0,true):(a$2=_Intent$1("greet",m.$0),a$2!=null&&a$2.$==1&&(a$3=NLU$1.Entity1OfAny("contact",a$2.$0[1]),a$3!=null&&a$3.$==1&&(m.$1.$==0&&($1=a$3.$0,true))))):(a$4=_Intent$1("greet",m.$0),a$4!=null&&a$4.$==1&&(a$5=NLU$1.Entity1OfAny("contact",a$4.$0[1]),a$5!=null&&a$5.$==1&&(m.$1.$==0&&($1=a$5.$0,true))))))
@@ -3990,7 +4184,7 @@
   SC$10.$cctor=Global.ignore;
   function main(term,command)
   {
-   var e,a,e$1,b,a$1,e$2,b$1,a$2,dt,b$2,a$3,et,b$3,a$4,bt,b$4,$1,voices,$2,a$5,a$6,a$7,a$8,a$9,a$10,m,b$5,Dialogue$1,a$11,a$12,p;
+   var $1,e,a,e$1,b,a$1,e$2,b$1,a$2,dt,b$2,a$3,et,b$3,a$4,bt,b$4,$2,voices,$3,a$5,a$6,a$7,a$8,a$9,a$10,m,b$5,Dialogue$1,a$11,a$12,p;
    function push(m$1)
    {
     Client.Utterances().unshift(m$1);
@@ -4014,7 +4208,7 @@
    if(Dialogue$1.get_Props().ContainsKey("journalentry"))
     {
      Client.debug("Routing input as journal entry.");
-     return Journal.update(push(new Utterance$1({
+     Journal.update(push(new Utterance$1({
       $:0,
       $0:"journal",
       $1:{
@@ -4048,24 +4242,24 @@
     {
      a$11=Text.Blank(command);
      if(a$11!=null&&a$11.$==1)
-      return Client["say'"]("Tell me what you want me to do or ask me a question.");
+      Client["say'"]("Tell me what you want me to do or ask me a question.");
      else
       {
        a$12=Text.Debug(command);
        if(a$12!=null&&a$12.$==1)
         {
-         Client.debug((function($3)
+         Client.debug((function($4)
          {
-          return function($4)
+          return function($5)
           {
-           return $3("Utterances: "+Utils.prettyPrint($4));
+           return $4("Utterances: "+Utils.prettyPrint($5));
           };
          }(Global.id))(Client.Utterances()));
-         Client.debug((function($3)
+         Client.debug((function($4)
          {
-          return function($4)
+          return function($5)
           {
-           return $3("Questions: "+Utils.prettyPrint($4));
+           return $4("Questions: "+Utils.prettyPrint($5));
           };
          }(Global.id))(Client.Questions()));
          e=Client.Props().GetEnumerator$1();
@@ -4074,9 +4268,9 @@
           while(e.MoveNext())
            {
             p=e.Current();
-            Client.debug((((Runtime.Curried3(function($3,$4,$5)
+            Client.debug((((Runtime.Curried3(function($4,$5,$6)
             {
-             return $3(Utils.toSafe($4)+": "+Utils.prettyPrint($5));
+             return $4(Utils.toSafe($5)+": "+Utils.prettyPrint($6));
             }))(Global.id))(p.K))(p.V));
            }
          }
@@ -4084,23 +4278,23 @@
          {
           e.Dispose();
          }
-         return(new AjaxRemotingProvider.New()).Send("Mina.Web:Mina.Web.Server.getGoogleNLU:6",[]);
+         (new AjaxRemotingProvider.New()).Send("Mina.Web:Mina.Web.Server.getGoogleNLU:6",[]);
         }
        else
         {
          a=Text.DebugEntities(command);
-         return a!=null&&a.$==1?(e$1=a.$0,Client.CUI().Wait((b=null,Concurrency.Delay(function()
+         a!=null&&a.$==1?(e$1=a.$0,Client.CUI().Wait((b=null,Concurrency.Delay(function()
          {
           return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:203955644",[e$1]),function(a$13)
           {
            var entities;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(entities=a$13.$0,Concurrency.Combine(Concurrency.For(entities,function(a$14)
            {
-            Client.debug((function($3)
+            Client.debug((function($4)
             {
-             return function($4)
+             return function($5)
              {
-              return $3(Mina$Web_GeneratedPrintf.p($4));
+              return $4(Mina$Web_GeneratedPrintf.p($5));
              };
             }(Global.id))(a$14));
             return Concurrency.Zero();
@@ -4109,11 +4303,11 @@
             Client.echo("Entities:");
             return Concurrency.For(entities,function(a$14)
             {
-             Client.echo((function($3)
+             Client.echo((function($4)
              {
-              return function($4)
+              return function($5)
               {
-               return $3("<span style='color:white;background-color:#7B68EE'>"+Mina$Web_GeneratedPrintf.p($4)+"</span>");
+               return $4("<span style='color:white;background-color:#7B68EE'>"+Mina$Web_GeneratedPrintf.p($5)+"</span>");
               };
              }(Global.id))(a$14));
              return Concurrency.Zero();
@@ -4127,11 +4321,11 @@
            var lemmas;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(lemmas=a$13.$0,Concurrency.Combine(Concurrency.For(lemmas,function(a$14)
            {
-            Client.debug((function($3)
+            Client.debug((function($4)
             {
-             return function($4)
+             return function($5)
              {
-              return $3(Mina$Web_GeneratedPrintf.p$1($4));
+              return $4(Mina$Web_GeneratedPrintf.p$1($5));
              };
             }(Global.id))(a$14));
             return Concurrency.Zero();
@@ -4140,11 +4334,11 @@
             Client.echo("Lemmas:");
             return Concurrency.For(lemmas,function(a$14)
             {
-             Client.echo((function($3)
+             Client.echo((function($4)
              {
-              return function($4)
+              return function($5)
               {
-               return $3("<span style='color:white;background-color:#FFC0CB'>"+Mina$Web_GeneratedPrintf.p$1($4)+"</span>");
+               return $4("<span style='color:white;background-color:#FFC0CB'>"+Mina$Web_GeneratedPrintf.p$1($5)+"</span>");
               };
              }(Global.id))(a$14));
              return Concurrency.Zero();
@@ -4160,11 +4354,11 @@
            {
             return Concurrency.For(a$14,function(a$15)
             {
-             Client.debug((function($3)
+             Client.debug((function($4)
              {
-              return function($4)
+              return function($5)
               {
-               return $3(Mina$Web_GeneratedPrintf.p$2($4));
+               return $4(Mina$Web_GeneratedPrintf.p$2($5));
               };
              }(Global.id))(a$15));
              return Concurrency.Zero();
@@ -4174,14 +4368,14 @@
             Client.echo("Triples:");
             return Concurrency.For(c,function(a$14)
             {
-             Client.echo((function($3)
+             Client.echo((function($4)
              {
-              return function($4)
+              return function($5)
               {
-               return $3("<span style='color:white;background-color:#00FA9A'>"+Utils.printList(function($5)
+               return $4("<span style='color:white;background-color:#00FA9A'>"+Utils.printList(function($6)
                {
-                return Mina$Web_GeneratedPrintf.p$2($5);
-               },$4)+"</span>");
+                return Mina$Web_GeneratedPrintf.p$2($6);
+               },$5)+"</span>");
               };
              }(Global.id))(a$14));
              return Concurrency.Zero();
@@ -4195,11 +4389,11 @@
            var t;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
            {
-            Client.debug((function($3)
+            Client.debug((function($4)
             {
-             return function($4)
+             return function($5)
              {
-              return $3(Mina$Web_GeneratedPrintf.p$10($4));
+              return $4(Mina$Web_GeneratedPrintf.p$10($5));
              };
             }(Global.id))(a$14));
             return Concurrency.Zero();
@@ -4208,11 +4402,11 @@
             Client.echo("Emotional Traits:");
             return Concurrency.For(t,function(a$14)
             {
-             Client.echo((function($3)
+             Client.echo((function($4)
              {
-              return function($4)
+              return function($5)
               {
-               return $3("<span style='color:white;background-color:#FF4500'>"+Mina$Web_GeneratedPrintf.p$10($4)+"</span>");
+               return $4("<span style='color:white;background-color:#FF4500'>"+Mina$Web_GeneratedPrintf.p$10($5)+"</span>");
               };
              }(Global.id))(a$14));
              return Concurrency.Zero();
@@ -4226,11 +4420,11 @@
            var t;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
            {
-            Client.debug((function($3)
+            Client.debug((function($4)
             {
-             return function($4)
+             return function($5)
              {
-              return $3(Mina$Web_GeneratedPrintf.p$11($4));
+              return $4(Mina$Web_GeneratedPrintf.p$11($5));
              };
             }(Global.id))(a$14));
             return Concurrency.Zero();
@@ -4239,40 +4433,40 @@
             Client.echo("Behavioral Traits:");
             return Concurrency.For(t,function(a$14)
             {
-             Client.echo((function($3)
+             Client.echo((function($4)
              {
-              return function($4)
+              return function($5)
               {
-               return $3("<span style='color:white;background-color:#FF4500'>"+Mina$Web_GeneratedPrintf.p$11($4)+"</span>");
+               return $4("<span style='color:white;background-color:#FF4500'>"+Mina$Web_GeneratedPrintf.p$11($5)+"</span>");
               };
              }(Global.id))(a$14));
              return Concurrency.Zero();
             });
            })));
           });
-         })))):($1=Text.Voices(command),$1!=null&&$1.$==1?(voices=ClientExtensions.toArray(ClientExtensions.speechSynthesis().getVoices()),Client["say'"]((function($3)
+         })))):($2=Text.Voices(command),$2!=null&&$2.$==1?(voices=ClientExtensions.toArray(ClientExtensions.speechSynthesis().getVoices()),Client["say'"]((function($4)
          {
-          return function($4)
+          return function($5)
           {
-           return $3("There are currently "+Global.String($4)+" voices installed on this computer or device.");
+           return $4("There are currently "+Global.String($5)+" voices installed on this computer or device.");
           };
          }(Global.id))(Arrays.length(voices))),Arrays.iteri(function(i,v)
          {
-          return Client["say'"](((((Runtime.Curried(function($3,$4,$5,$6)
+          return Client["say'"](((((Runtime.Curried(function($4,$5,$6,$7)
           {
-           return $3("Voice "+Global.String($4)+". Name: "+Utils.toSafe($5)+", Local: "+Utils.prettyPrint($6)+".");
+           return $4("Voice "+Global.String($5)+". Name: "+Utils.toSafe($6)+", Local: "+Utils.prettyPrint($7)+".");
           },4))(Global.id))(i))(v.name))(v.localService));
-         },voices)):Client.ClientState().$==1?(a$5=Text.QuickHello(command),(a$5!=null&&a$5.$==1?($2=a$5.$0,true):(a$6=Text.QuickHelp(command),a$6!=null&&a$6.$==1?($2=a$6.$0,true):(a$7=Text.QuickYes(command),a$7!=null&&a$7.$==1?($2=a$7.$0,true):(a$8=Text.QuickNo(command),a$8!=null&&a$8.$==1?($2=a$8.$0,true):(a$9=Text.QuickNumber(command),a$9!=null&&a$9.$==1&&($2=a$9.$0,true))))))?(Client.debug((function($3)
+         },voices)):Client.ClientState().$==1?(a$5=Text.QuickHello(command),(a$5!=null&&a$5.$==1?($3=a$5.$0,true):(a$6=Text.QuickHelp(command),a$6!=null&&a$6.$==1?($3=a$6.$0,true):(a$7=Text.QuickYes(command),a$7!=null&&a$7.$==1?($3=a$7.$0,true):(a$8=Text.QuickNo(command),a$8!=null&&a$8.$==1?($3=a$8.$0,true):(a$9=Text.QuickNumber(command),a$9!=null&&a$9.$==1&&($3=a$9.$0,true))))))?(Client.debug((function($4)
          {
-          return function($4)
+          return function($5)
           {
-           return $3("Quick Text: "+Mina$Web_GeneratedPrintf.p$12($4)+".");
+           return $4("Quick Text: "+Mina$Web_GeneratedPrintf.p$12($5)+".");
           };
-         }(Global.id))($2)),Main.update(push($2)),Client.set_ClientState(ClientState.ClientReady)):(a$10=Text.JournalEntry(command),a$10!=null&&a$10.$==1?(m=a$10.$0,Client.debug((function($3)
+         }(Global.id))($3)),Main.update(push($3)),Client.set_ClientState(ClientState.ClientReady)):(a$10=Text.JournalEntry(command),a$10!=null&&a$10.$==1?(m=a$10.$0,Client.debug((function($4)
          {
-          return function($4)
+          return function($5)
           {
-           return $3("Journal entry: "+Mina$Web_GeneratedPrintf.p$12($4)+".");
+           return $4("Journal entry: "+Mina$Web_GeneratedPrintf.p$12($5)+".");
           };
          }(Global.id))(m)),Main.update(push(m)),Client.set_ClientState(ClientState.ClientReady)):Client.CUI().Wait((b$5=null,Concurrency.Delay(function()
          {
@@ -4284,9 +4478,9 @@
            if(a$13!=null&&a$13.$==1)
             {
              m$1=a$13.$0;
-             Client.debug(((((Runtime.Curried(function($3,$4,$5,$6)
+             Client.debug(((((Runtime.Curried(function($4,$5,$6,$7)
              {
-              return $3("Text: Intent: "+Mina$Web_GeneratedPrintf.p$13($4)+", Traits: "+Mina$Web_GeneratedPrintf.p$16($5)+", Entities: "+Mina$Web_GeneratedPrintf.p$18($6)+".");
+              return $4("Text: Intent: "+Mina$Web_GeneratedPrintf.p$13($5)+", Traits: "+Mina$Web_GeneratedPrintf.p$16($6)+", Entities: "+Mina$Web_GeneratedPrintf.p$18($7)+".");
              },4))(Global.id))(m$1.get_Intent()))(m$1.get_Traits()))(m$1.get_Entities()));
              Main.update(push(m$1));
             }
@@ -4302,8 +4496,9 @@
         }
       }
     }
+   return self.scrollTo(0,Operators.toInt(self.document.body.scrollHeight));
   }
-  SC$10.CUI=CUI$1.New(null,null,null,(SDK.applicationId="4277115329081938617",sdk=new Global.SDKConnection(),web=new Global.WebAvatar(),web.version=8.5,web.connection=sdk,web.avatar="20926221",web.voice="cmu-slt",web.voiceMod="default",web.width=$(self).width()<=479?90:175,web.createBox(),web.addMessage(""),web.processMessages(0),web),false,new Dictionary.New$5(),new Global.TypingDNA());
+  SC$10.CUI=CUI$1.New(null,null,null,(SDK.applicationId="4277115329081938617",sdk=new Global.SDKConnection(),web=new Global.WebAvatar(),web.version=8.5,web.connection=sdk,web.avatar="20926186",web.voice="cmu-slt",web.voiceMod="default",web.width=$(self).width()<=479?90:175,web.createBox(),web.addMessage(""),web.processMessages(0),web),false,new Dictionary.New$5(),new Global.TypingDNA());
   SC$10.MicState=MicState.MicNotInitialized;
   SC$10.ClientState=ClientState.ClientNotInitialzed;
   SC$10.Props=new Dictionary.New$5();

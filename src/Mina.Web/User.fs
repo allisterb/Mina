@@ -62,6 +62,7 @@ module User =
        
         let user():User = prop "user"
         let triggerTests = Dialogue.trigger d debug Tests.update
+        let triggerJournal = Dialogue.trigger d debug Journal.update
 
         (* User functions *)
         let switchUserQuestion u = Question("switchUser", name, Verification ((fun _ -> trigger "verify" "yes"), (fun _ -> trigger "reject" "no")), None, fun _ -> say <| sprintf "Do you want me to switch to the user %s" u)
@@ -78,8 +79,15 @@ module User =
                     if Option.isSome user.LastLoggedIn then 
                         let! h = Server.humanize user.LastLoggedIn.Value
                         say <| sprintf "You last logged in %s." h
+                    JQuery("#profile").RemoveClass("invisible").AddClass("visible") |> ignore
                     doc <| Doc.Concat [
                         Bs.btnPrimary "tests" (fun _ _ -> triggerTests "list_test_categories" "list_test_categories")
+                        Html.text "     "
+                        Bs.btnPrimary "symptoms" (fun _ _ -> triggerJournal "symptoms_journal" "symptoms_journal")
+                        Html.text "     "
+                        Bs.btnPrimary "mood" (fun _ _ -> triggerJournal "mood_journal" "mood_journal")
+                        Html.text "     "
+                        Bs.btnPrimary "caregiver" (fun _ _ -> triggerJournal "caregiver_journal" "caregiver_journal")
                         Html.text "     "
                         Bs.btnInfo "help" (fun _ _ -> trigger "help" "help")
                     ]

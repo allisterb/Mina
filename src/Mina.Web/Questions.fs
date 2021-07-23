@@ -76,6 +76,7 @@ module Questions =
         | UserAuthentication u -> QuestionDialogs.userAuthenticationDialog d debug q u
         | Verification (v, r) -> 
             d.Cui.EchoDoc <| Doc.Concat [
+                Html.text "    "
                 Bs.btnPrimary "Yes" (fun _ _ -> d.Cui.Term.Enable();v())
                 Html.text "     "
                 Bs.btnSecondary "No" (fun _ _ -> d.Cui.Term.Enable();r()) 
@@ -91,6 +92,8 @@ module Questions =
 
         | WritingPrompt _ -> ()
         | _ -> ()
+
+        JS.Window.ScrollTo(0, (int) JS.Document.Body.ScrollHeight)
 
     let menu (d:Dialogue) m n c (p:string) t = Question (n, m, Menu(c, t), None, fun _ -> 
         d.Cui.EchoHtml' p 

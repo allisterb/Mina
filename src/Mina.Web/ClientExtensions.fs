@@ -17,6 +17,8 @@ open SMApp.JQueryTerminal
 open SMApp.WebSpeech
 open SMApp.TypingDNA
 
+type TimerTemplate = Templating.Template<"wwwroot/Timer.html">
+
 [<AutoOpen; JavaScript>]
 module ClientExtensions =
     let rnd = System.Random()

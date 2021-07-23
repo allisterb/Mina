@@ -27,7 +27,7 @@ module Client =
             let web = new WebAvatar()
             web.Version <- 8.5
             web.Connection <- sdk
-            web.Avatar <- "20926221" //"20053084"
+            web.Avatar <- "20926186" // "20926221" // "20053084"
             web.Voice <- "cmu-slt";
             web.VoiceMod <- "default";
             web.Width <- if JQuery(JS.Window).Width() <= 479 then 90 else 175
@@ -258,6 +258,8 @@ module Client =
                             ClientState <- ClientReady
                         } |> CUI.Wait
                 | ClientNotInitialzed -> error "Client is not initialized."
+
+            JS.Window.ScrollTo(0, (int) JS.Document.Body.ScrollHeight)
         let mainOpt =
             Options(
                 Name="Main", 

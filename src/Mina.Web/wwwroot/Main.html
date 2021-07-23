@@ -11,21 +11,27 @@
     <div id="container" class="container">
         <div class="row d-flex">
 
-            <div class="col-10">
+            <div class="col-9">
                 <div id="main" ws-replace="Body"></div>
                 <div id="microphone"></div>
             </div>
-            <div class="col-2" id="sidebar">
+            <div class="col-3" id="sidebar">
                 <div class="sticky-top">
-                    <div id = "profile" class="card invisible">
-                        <img id="profile-portrait" class="card-img-top" src="https://pbs.twimg.com/profile_images/461652698236850176/cucY7-cL.jpeg" alt="Card image cap">
+                    <div id="profile" class="card text-center mb-5">
+                        <div class="card-header">User</div>
+                        <img id="profile-portrait" class="card-img-top img-thumbnail" src="https://pbs.twimg.com/profile_images/461652698236850176/cucY7-cL.jpeg" alt="Card image cap">
                         <div class="card-body">
                             <h5 id="profile-name" class="card-title">Bob Sagat</h5>
                         </div>
                     </div>
-                    <div class="card invisible">
-                        <div id="pp1" class="pieProgress--countdown" data-barcolor="#3daf2c" data-barsize="10" role="progressbar">
-                            <span class="pie_progress__number">2: 00</span>
+                    <div class="card text-center mb-5 border-primary invisible" id="testprofile">
+                        <div class="card-header">Active Test</div>
+                        <div class="card-body">
+                            <h5 id="testprofile-name" class="card-title">PASAT</h5>
+                            <div class="card-body"></div>
+                        </div>
+                        <div id="testprofile-timer" class="pieProgress--countdown" data-barcolor="#3daf2c" data-barsize="10" role="progressbar">
+                            <span class="pie_progress__number"></span>
                         </div>
                     </div>
                 </div>

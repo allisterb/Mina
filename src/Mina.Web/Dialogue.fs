@@ -107,6 +107,13 @@ module Dialogue =
         if have d m then remove d debug m
         debug <| sprintf "End turn %s." m
         f()
+
+    let endt' (d:Dialogue) (debug:string -> unit) (f:unit->unit) =
+        let q = d.DialogueQuestions.Peek()
+        popu d debug
+        popq d debug
+        debug <| sprintf "End turn %s." q.Name
+        f()
        
     let didNotUnderstand (d:Dialogue) (debug:string -> unit) (name:string) =
         debug <| sprintf "%s interpreter did not understand utterance." name
