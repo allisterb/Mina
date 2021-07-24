@@ -161,6 +161,11 @@ module Client =
                 debug "Routing input as journal entry."
                 Utterance("journal", Some(Intent("journal", Some 1.0f)), None, Some([Entity("journal_entry", "", j, Some 1.0f)])) |> push |> Journal.update
 
+            (* Test response *)
+            | t when Dialogue.Props.ContainsKey "testentry" -> 
+                debug "Routing input as test entry."
+                Utterance("r_test_sdmt", Some(Intent("r_test_sdmt", Some 1.0f)), None, None) |> push |> Tests.update
+            
             (* Quick commands *)
             | Text.Blank -> say' "Tell me what you want me to do or ask me a question."
             | Text.Debug ->

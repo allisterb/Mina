@@ -77,7 +77,7 @@ module Tests =
                                      When you hear the next number, add it to the one you heard right before it. 
                                      Continue to add the next number to each preceding one. Remember you are not being asked to give me a running total, but rather the sum of the last two numbers that you heard."
 
-        let sdmtTestInstructions = "SDMT"
+        let sdmtTestInstructions = "You will see a sequence of 9 symbols. Using the symbol-digit key that you see displayed here, enter the 9 digits that match the symbol according to the key."
         let sdmtCharacters = ["\u2540"; "\u2560"; "\u2599"; "\u25AE"; "\u25B3"; "\u25C9"; "\u25E0"; "\u25F0"; "\u2593"]
         
         (* Interpreter logic begins here *)
@@ -129,9 +129,9 @@ module Tests =
                         Html.text "     "
                         Bs.btnInfo "about" (fun _ _ -> trigger "about_test_pasat" "about_test_pasat")
                         Html.text "     "
-                        Bs.btnSecondary "my history" (fun _ _ -> trigger "history_test_pasat" "history_test_pasat")
+                        Bs.btnDark "my history" (fun _ _ -> trigger "history_test_pasat" "history_test_pasat")
                         Html.text "     "
-                        Bs.btnDark "cancel" (fun _ _ -> trigger "cancel" "cancel")
+                        Bs.btnSecondary "cancel" (fun _ _ -> trigger "cancel" "cancel")
                     ]
                 | 3 -> 
                     doc <| Html.text "    "
@@ -144,9 +144,9 @@ module Tests =
                         Html.text "     "
                         Bs.btnInfo "about" (fun _ _ -> trigger "about_test_sdmt" "about_test_sdmt")
                         Html.text "     "
-                        Bs.btnSecondary "my history" (fun _ _ -> trigger "history_test_sdmt" "history_test_sdmt")
+                        Bs.btnDark "my history" (fun _ _ -> trigger "history_test_sdmt" "history_test_sdmt")
                         Html.text "     "
-                        Bs.btnDark "cancel" (fun _ _ -> trigger "cancel" "cancel")
+                        Bs.btnSecondary "cancel" (fun _ _ -> trigger "cancel" "cancel")
                     ]
                 | _ -> say "Choose a cognitive test from the list."
             )
@@ -175,29 +175,114 @@ module Tests =
             handle "start_test_sdmt" (fun _ ->
                 say sdmtTestInstructions
                 echo "Listen to the instructions and click the Yes button when ready."
+                doc <| text "    "
                 ask <| Question("verify_start_test_sdmt", name, Verification ((fun _ -> trigger "verify" "yes"), (fun _ -> trigger "reject" "no")), None, fun _ -> 
-                    say "Are you ready to begin?") 
+                    ()) 
             )
         
         | Yes(Response "verify_start_test_sdmt"(_,_,_))::[] -> 
-            if JQuery("#testprofile").HasClass("invisible") then
-                JQuery("#testprofile").RemoveClass("invisible").AddClass("visible") |> ignore 
-            JQuery("#testprofile-name").Text("SDMT") |>ignore
+            endt "verify_start_test_sdmt" (fun _ ->
+                add "testentry" true
+                if JQuery("#testprofile").HasClass("invisible") then
+                    JQuery("#testprofile").RemoveClass("invisible").AddClass("visible") |> ignore 
+            
+                doc <| table [cls "table table-bordered"] [
+                    thead[] [tr [] (sdmtCharacters |> List.map(fun c -> th [Attr.Create "scope" "col"; attr.style "font-size:300%;text-align:center"] [text c]))]
+                    tbody[] [tr [] (sdmtCharacters |> List.mapi(fun i _ -> td [attr.style "font-size:300%;text-align:center"] [text <| string (i + 1)]))]
+                ]
+                JQueryPieProgress.enable (JS.Document.GetElementById("pp1")) ({ns= "pie_progress"; Goal=0; First=90;Min=0; Max=90; Speed=900;Easing="linear";NumberCallback = Defined (fun n -> 
+                let minutes = int <| System.Math.Floor(float (JS.this?now) / 60.);
+                let seconds = int <| JS.this?now % 60.;
+                let min = (string) minutes
+                let sec = if (seconds > 10) then (string) seconds else "0" + (string) seconds
+                min + ": " + sec
+                )})
+                say "You have 90 seconds to complete this round."
+                echo "Round 1"
+                doc <| table [cls "table table-bordered"] [
+                    thead[] [tr [] (sdmtCharacters |> List.toArray |> shuffleArray |> Array.map(fun c -> th [Attr.Create "scope" "col"; attr.style "font-size:300%;text-align:center"] [text c]))]
+                ]
+                doc <| Doc.Concat [
+                    Html.text "    "
+                    Bs.btnWarning "1" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnWarning "2" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnWarning "3" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnWarning "4" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnWarning "5" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnWarning "6" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnWarning "7" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnWarning "8" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnWarning "9" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnSuccess "next" (fun _ _ -> trigger "next_test_sdmt" "next_test_sdmt" )
+                    Html.text "    "
+                    Bs.btnDanger "stop" (fun _ _ -> trigger "stop_test_sdmt" "stop_test_sdmt" )
+                ]
+                JQueryPieProgress.start (JS.Document.GetElementById("pp1"))
+                say "Enter the 9 digits corresponding to the symbols shown."
+            )
+        | Intent "r_test_sdmt" _::[] ->
+            popu()
+            echo "Round 2"
+            JQuery("#testprofile-round").Text "Round 2" |> ignore
             doc <| table [cls "table table-bordered"] [
-                thead[] [tr [] (sdmtCharacters |> List.map(fun c -> th [Attr.Create "scope" "col"; attr.style "font-size:300%;text-align:center"] [text c]))]
-                tbody[] [tr [] (sdmtCharacters |> List.mapi(fun i _ -> td [attr.style "font-size:300%;text-align:center"] [text <| string i]))]
+                thead[] [tr [] (sdmtCharacters |> List.toArray |> shuffleArray |> Array.map(fun c -> th [Attr.Create "scope" "col"; attr.style "font-size:300%;text-align:center"] [text c]))]
             ]
-            (*
-            JQueryPieProgress.enable (JS.Document.GetElementById("#testprofile-timer")) ({ns= "pie_progress"; Goal=0; First=120;Min=0; Max=120; Speed=1200;Easing="linear";NumberCallback = Defined (fun n -> 
-            let minutes = int <| System.Math.Floor(float (JS.this?now) / 60.);
-            let seconds = int <| JS.this?now % 60.;
-            let min = (string) minutes
-            let sec = if (seconds > 10) then (string) seconds else "0" + (string) seconds
-            min + ": " + sec
-            )})
-            *)
-            JQueryPieProgress.start (JS.Document.GetElementById("#testprofile-timer"))
+            doc <| Doc.Concat [
+                Html.text "    "
+                Bs.btnWarning "1" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                Html.text "    "
+                Bs.btnWarning "2" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                Html.text "    "
+                Bs.btnWarning "3" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                Html.text "    "
+                Bs.btnWarning "4" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                Html.text "    "
+                Bs.btnWarning "5" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                Html.text "    "
+                Bs.btnWarning "6" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                Html.text "    "
+                Bs.btnWarning "7" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                Html.text "    "
+                Bs.btnWarning "8" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                Html.text "    "
+                Bs.btnWarning "9" (fun _ _ -> trigger "r_test_sdmt" "r_test_sdmt" )
+                Html.text "    "
+                Bs.btnSuccess "next" (fun _ _ -> trigger "next_test_sdmt" "next_test_sdmt" )
+                Html.text "    "
+                Bs.btnDanger "stop" (fun _ _ -> trigger "stop_test_sdmt" "stop_test_sdmt" )
+            ]
+            say "Enter the 9 digits corresponding to the symbols shown."
 
+        | Intent "stop_test_sdmt" _::[] ->
+            popu()
+            JQueryPieProgress.stop (JS.Document.GetElementById("pp1"))
+            //if JQuery("#testprofile").HasClass("invisible") then
+            //    JQuery("#testprofile").RemoveClass("invisible").AddClass("visible") |> ignore
+            doc <| Doc.Concat [
+                Bs.btnPrimary "knowledge" (fun _ _ -> trigger "list_kb_categories" "list_kb_categories")
+                Html.text "     "
+                Bs.btnPrimary "tests" (fun _ _ -> trigger "list_test_categories" "list_test_categories")
+                Html.text "     "
+                Bs.btnPrimary "symptoms" (fun _ _ -> triggerJournal "symptom_journal" "symptom_journal")
+                Html.text "     "
+                Bs.btnPrimary "mood" (fun _ _ -> triggerJournal "mood_journal" "mood_journal")
+                Html.text "     "
+                Bs.btnPrimary "caregiver" (fun _ _ -> triggerJournal "caregiver_journal" "caregiver_journal")
+                Html.text "     "
+                Bs.btnSecondary "settings" (fun _ _ -> trigger "list_settings_categories" "list_settings_categories")
+                Html.text "     "
+                Bs.btnInfo "help" (fun _ _ -> trigger "help" "help")
+            ]
+            
         | Intent "query" _::[]
         | Intent "medication_journal" _::[] -> Journal.update d
 

@@ -230,6 +230,8 @@ module Journal =
 
         | User(Intent "symptom_journal" (_, None))::[] -> 
             say "Choose one of the following the writing prompts:"
+            echo "Choose one of the following the writing prompts for your symptom journal:"
+            
             cui.Say symptom_writing_prompts
             echo <| sprintf "1. %s" symptom_writing_prompts.[0]
             echo <| sprintf "2. %s" symptom_writing_prompts.[1]

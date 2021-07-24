@@ -75,19 +75,25 @@ module User =
                 | Some user ->
                     do! Server.updateUserLastLogin user.Name |> Async.Ignore
                     sayRandom helloUserPhrases user.Name
+                    say "You have 2 new messages. You have 2 tests scheduled for today."
                     add "user" u                    
                     if Option.isSome user.LastLoggedIn then 
                         let! h = Server.humanize user.LastLoggedIn.Value
                         say <| sprintf "You last logged in %s." h
-                    JQuery("#profile").RemoveClass("invisible").AddClass("visible") |> ignore
+                    if JQuery("#profile").HasClass("invisible") then
+                        JQuery("#profile").RemoveClass("invisible").AddClass("visible") |> ignore
                     doc <| Doc.Concat [
+                        Bs.btnPrimary "knowledge" (fun _ _ -> triggerTests "list_kb_categories" "list_kb_categories")
+                        Html.text "     "
                         Bs.btnPrimary "tests" (fun _ _ -> triggerTests "list_test_categories" "list_test_categories")
                         Html.text "     "
-                        Bs.btnPrimary "symptoms" (fun _ _ -> triggerJournal "symptoms_journal" "symptoms_journal")
+                        Bs.btnPrimary "symptoms" (fun _ _ -> triggerJournal "symptom_journal" "symptom_journal")
                         Html.text "     "
                         Bs.btnPrimary "mood" (fun _ _ -> triggerJournal "mood_journal" "mood_journal")
                         Html.text "     "
                         Bs.btnPrimary "caregiver" (fun _ _ -> triggerJournal "caregiver_journal" "caregiver_journal")
+                        Html.text "     "
+                        Bs.btnSecondary "settings" (fun _ _ -> trigger "list_settings_categories" "list_settings_categories")
                         Html.text "     "
                         Bs.btnInfo "help" (fun _ _ -> trigger "help" "help")
                     ]

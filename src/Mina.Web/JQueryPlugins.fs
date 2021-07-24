@@ -44,3 +44,9 @@ module JQueryPieProgress =
 
     [<Inline "jQuery($el).asPieProgress('start')">]
     let start (el:Dom.Element) = X<unit>
+
+    [<Inline "jQuery($el).asPieProgress('stop')">]
+    let stop (el:Dom.Element) = X<unit>
+
+    [<Inline "jQuery($el).asPieProgress('reset')">]
+    let reset (el:Dom.Element) = X<unit>

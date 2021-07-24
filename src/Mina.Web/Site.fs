@@ -25,7 +25,7 @@ module Templates =
     
 module Site =
     let HomePage ctx =
-        Templates.Main ctx Home "Multimodal Intelligent Clinical Assistant for Healthcare" [
+        Templates.Main ctx Home "Multimodal Interactive Neuropsychological Assistant" [
             div [attr.id "term"] [
                 client <@ Client.run() @>                
             ]

@@ -146,6 +146,21 @@
  {
   return Global.$("#term").terminal().disable();
  };
+ ClientExtensions.shuffleArray=function(a)
+ {
+  Arrays.iteri(function($1)
+  {
+   return ClientExtensions.swap(a,$1,ClientExtensions.rnd().Next($1,a.length));
+  },a);
+  return a;
+ };
+ ClientExtensions.swap=function(a,x,y)
+ {
+  var tmp;
+  tmp=Arrays.get(a,x);
+  Arrays.set(a,x,Arrays.get(a,y));
+  Arrays.set(a,y,tmp);
+ };
  ClientExtensions.boxesWithTitles=function(boxes)
  {
   return Arrays.map(function(b)
@@ -2760,15 +2775,15 @@
   SC$5.$cctor=Global.ignore;
   SC$5.name="Symptoms";
  };
- Journal.update$243$96=Runtime.Curried3(function(trigger,$1,$2)
+ Journal.update$245$96=Runtime.Curried3(function(trigger,$1,$2)
  {
   return(trigger("3"))("3");
  });
- Journal.update$241$96=Runtime.Curried3(function(trigger,$1,$2)
+ Journal.update$243$96=Runtime.Curried3(function(trigger,$1,$2)
  {
   return(trigger("2"))("2");
  });
- Journal.update$239$96=Runtime.Curried3(function(trigger,$1,$2)
+ Journal.update$241$96=Runtime.Curried3(function(trigger,$1,$2)
  {
   return(trigger("1"))("1");
  });
@@ -3118,7 +3133,7 @@
     {
      return a$30.$==1?(say("Sorry I was not able to add your journal entry. Could you try again? Press the up arrow to return to the text you just wrote."),Concurrency.Zero()):(popu(),popu(),processEntry(),Concurrency.Zero());
     });
-   })),null)):m.$==1&&(a$13=User$1(m.$0),a$13!=null&&a$13.$==1&&(a$14=Intent$2("symptom_journal",a$13.$0),a$14!=null&&a$14.$==1&&(a$14.$0[1]==null&&m.$1.$==0)))?(say("Choose one of the following the writing prompts:"),cui.Say(symptom_writing_prompts),echo((function($13)
+   })),null)):m.$==1&&(a$13=User$1(m.$0),a$13!=null&&a$13.$==1&&(a$14=Intent$2("symptom_journal",a$13.$0),a$14!=null&&a$14.$==1&&(a$14.$0[1]==null&&m.$1.$==0)))?(say("Choose one of the following the writing prompts:"),echo("Choose one of the following the writing prompts for your symptom journal:"),cui.Say(symptom_writing_prompts),echo((function($13)
    {
     return function($14)
     {
@@ -3192,7 +3207,7 @@
  };
  Tests.update=function(d)
  {
-  var cui,handle,trigger,endt,ask,testCategories,physicalHealthTests,mentalHealthTests,cognitiveTests,psychologicalTests,sdmtCharacters,m,$1,$2,$3,a,$4,$5,a$1,a$2,$6,a$3,$7,a$4,$8,a$5,$9,a$6,$10,a$7,$11,a$8,$12,a$9,$13,a$10,$14,a$11,$15,a$12,$16,a$13,$17,a$14,$18,a$15,$19,a$16,$20,a$17,$21,$22,a$18,a$19,$23,$24,$25,a$20,$26,$27,$28,$29,a$21,$30,$31,$32,$33;
+  var cui,handle,trigger,endt,ask,triggerJournal,testCategories,physicalHealthTests,mentalHealthTests,cognitiveTests,psychologicalTests,sdmtCharacters,m,$1,$2,$3,a,$4,$5,a$1,a$2,$6,a$3,$7,a$4,$8,a$5,$9,a$6,$10,a$7,$11,a$8,$12,a$9,$13,a$10,$14,a$11,$15,a$12,$16,a$13,$17,a$14,$18,a$15,$19,a$16,$20,a$17,$21,$22,a$18,a$19,$23,$24,$25,a$20,$26,$27,$28,$29,a$21,$30,$31,$32,$33,$34,$35,$36,$37;
   function echo(t$1)
   {
    DialogueModule.echo(d,t$1);
@@ -3205,6 +3220,20 @@
   {
    cui.EchoDoc(a$22);
   }
+  function add(k,v)
+  {
+   return DialogueModule.add(d,function(m$1)
+   {
+    Tests.debug(m$1);
+   },k,v);
+  }
+  function popu()
+  {
+   DialogueModule.popu(d,function(m$1)
+   {
+    Tests.debug(m$1);
+   });
+  }
   function d$1(m$1)
   {
    Tests.debug(m$1);
@@ -3213,9 +3242,9 @@
   {
    Tests.debug(m$1);
   }
-  function t(d$5)
+  function t(d$6)
   {
-   Tests.update(d$5);
+   Tests.update(d$6);
   }
   function d$3(m$1)
   {
@@ -3237,6 +3266,10 @@
   {
    return DialogueModule.Response_(d,n,a$22);
   }
+  function d$5(m$1)
+  {
+   Tests.debug(m$1);
+  }
   DialogueModule.debugInterpreterStart(d,function(m$1)
   {
    Tests.debug(m$1);
@@ -3249,6 +3282,10 @@
   {
    Questions.ask(d,d$4,q);
   };
+  triggerJournal=Runtime.Curried(DialogueModule.trigger,2,[d,d$5,function(d$6)
+  {
+   Journal.update(d$6);
+  }]);
   testCategories=List.ofArray(["Physical Health Tests","Mental Health Tests","Cognitive Tests","Psychological Tests"]);
   physicalHealthTests=List.ofArray(["Bladder Control Scale","Bowel Control Scale","Modified Fatigue Impact Scale","MOS Pain Effects Scale","Sexual Satisfaction Scale"]);
   mentalHealthTests=List.ofArray(["Mental Health Inventory","Modified Social Support Survey"]);
@@ -3317,13 +3354,13 @@
        {
         return(trigger("about_test_pasat"))("about_test_pasat");
        };
-      }),Doc.TextNode("     "),Bs.btnSecondary("my history",function()
+      }),Doc.TextNode("     "),Bs.btnDark("my history",function()
       {
        return function()
        {
         return(trigger("history_test_pasat"))("history_test_pasat");
        };
-      }),Doc.TextNode("     "),Bs.btnDark("cancel",function()
+      }),Doc.TextNode("     "),Bs.btnSecondary("cancel",function()
       {
        return function()
        {
@@ -3350,13 +3387,13 @@
         {
          return(trigger("about_test_sdmt"))("about_test_sdmt");
         };
-       }),Doc.TextNode("     "),Bs.btnSecondary("my history",function()
+       }),Doc.TextNode("     "),Bs.btnDark("my history",function()
        {
         return function()
         {
          return(trigger("history_test_sdmt"))("history_test_sdmt");
         };
-       }),Doc.TextNode("     "),Bs.btnDark("cancel",function()
+       }),Doc.TextNode("     "),Bs.btnSecondary("cancel",function()
        {
         return function()
         {
@@ -3400,8 +3437,9 @@
     return Global.String(minutes)+": "+(seconds>10?Global.String(seconds):"0"+Global.String(seconds));
    })),$(self.document.getElementById("#testprofile-timer")).asPieProgress("start")):m.$==1&&(($28=Intent$2("start_test_sdmt",m.$0),$28!=null&&$28.$==1)&&m.$1.$==0)?(handle("start_test_sdmt"))(function()
    {
-    say("SDMT");
+    say("You will see a sequence of 9 symbols. Using the symbol-digit key that you see displayed here, enter the 9 digits that match the symbol according to the key.");
     echo("Listen to the instructions and click the Yes button when ready.");
+    doc(Doc.TextNode("    "));
     ask(new Question({
      $:0,
      $0:"verify_start_test_sdmt",
@@ -3418,18 +3456,213 @@
       }
      },
      $3:null,
-     $4:function()
-     {
-      say("Are you ready to begin?");
-     }
+     $4:Global.ignore
     }));
-   }):m.$==1&&(a$21=NLU$1.Yes(m.$0),a$21!=null&&a$21.$==1&&(($30=Response("verify_start_test_sdmt",a$21.$0),$30!=null&&$30.$==1)&&m.$1.$==0))?($("#testprofile").hasClass("invisible")?$("#testprofile").removeClass("invisible").addClass("visible"):void 0,$("#testprofile-name").text("SDMT"),doc(Doc.Element("table",[ClientExtensions.cls("table table-bordered")],[Doc.Element("thead",[],[Doc.Element("tr",[],List.map(function(c)
+   }):m.$==1&&(a$21=NLU$1.Yes(m.$0),a$21!=null&&a$21.$==1&&(($30=Response("verify_start_test_sdmt",a$21.$0),$30!=null&&$30.$==1)&&m.$1.$==0))?(endt("verify_start_test_sdmt"))(function()
+   {
+    add("testentry",true);
+    $("#testprofile").hasClass("invisible")?$("#testprofile").removeClass("invisible").addClass("visible"):void 0;
+    doc(Doc.Element("table",[ClientExtensions.cls("table table-bordered")],[Doc.Element("thead",[],[Doc.Element("tr",[],List.map(function(c)
+    {
+     return Doc.Element("th",[AttrProxy.Create("scope","col"),AttrProxy.Create("style","font-size:300%;text-align:center")],[Doc.TextNode(c)]);
+    },sdmtCharacters))]),Doc.Element("tbody",[],[Doc.Element("tr",[],List.mapi(function(i)
+    {
+     return Doc.Element("td",[AttrProxy.Create("style","font-size:300%;text-align:center")],[Doc.TextNode(Global.String(i+1))]);
+    },sdmtCharacters))])]));
+    $(self.document.getElementById("pp1")).asPieProgress(JQueryPieProgressOptions.New("pie_progress",0,90,0,90,900,"linear",function()
+    {
+     var minutes,seconds;
+     minutes=Operators.toInt(Math.floor(this.now/60));
+     seconds=Operators.toInt(this.now%60);
+     return Global.String(minutes)+": "+(seconds>10?Global.String(seconds):"0"+Global.String(seconds));
+    }));
+    say("You have 90 seconds to complete this round.");
+    echo("Round 1");
+    doc(Doc.Element("table",[ClientExtensions.cls("table table-bordered")],[Doc.Element("thead",[],[Doc.Element("tr",[],Arrays.map(function(c)
+    {
+     return Doc.Element("th",[AttrProxy.Create("scope","col"),AttrProxy.Create("style","font-size:300%;text-align:center")],[Doc.TextNode(c)]);
+    },ClientExtensions.shuffleArray(Arrays.ofList(sdmtCharacters))))])]));
+    doc(Doc.Concat([Doc.TextNode("    "),Bs.btnWarning("1",function()
+    {
+     return function()
+     {
+      return(trigger("r_test_sdmt"))("r_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnWarning("2",function()
+    {
+     return function()
+     {
+      return(trigger("r_test_sdmt"))("r_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnWarning("3",function()
+    {
+     return function()
+     {
+      return(trigger("r_test_sdmt"))("r_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnWarning("4",function()
+    {
+     return function()
+     {
+      return(trigger("r_test_sdmt"))("r_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnWarning("5",function()
+    {
+     return function()
+     {
+      return(trigger("r_test_sdmt"))("r_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnWarning("6",function()
+    {
+     return function()
+     {
+      return(trigger("r_test_sdmt"))("r_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnWarning("7",function()
+    {
+     return function()
+     {
+      return(trigger("r_test_sdmt"))("r_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnWarning("8",function()
+    {
+     return function()
+     {
+      return(trigger("r_test_sdmt"))("r_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnWarning("9",function()
+    {
+     return function()
+     {
+      return(trigger("r_test_sdmt"))("r_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnSuccess("next",function()
+    {
+     return function()
+     {
+      return(trigger("next_test_sdmt"))("next_test_sdmt");
+     };
+    }),Doc.TextNode("    "),Bs.btnDanger("stop",function()
+    {
+     return function()
+     {
+      return(trigger("stop_test_sdmt"))("stop_test_sdmt");
+     };
+    })]));
+    $(self.document.getElementById("pp1")).asPieProgress("start");
+    say("Enter the 9 digits corresponding to the symbols shown.");
+   }):m.$==1&&(($32=Intent$2("r_test_sdmt",m.$0),$32!=null&&$32.$==1)&&m.$1.$==0)?(popu(),echo("Round 2"),$("#testprofile-round").text("Round 2"),doc(Doc.Element("table",[ClientExtensions.cls("table table-bordered")],[Doc.Element("thead",[],[Doc.Element("tr",[],Arrays.map(function(c)
    {
     return Doc.Element("th",[AttrProxy.Create("scope","col"),AttrProxy.Create("style","font-size:300%;text-align:center")],[Doc.TextNode(c)]);
-   },sdmtCharacters))]),Doc.Element("tbody",[],[Doc.Element("tr",[],List.mapi(function(i)
+   },ClientExtensions.shuffleArray(Arrays.ofList(sdmtCharacters))))])])),doc(Doc.Concat([Doc.TextNode("    "),Bs.btnWarning("1",function()
    {
-    return Doc.Element("td",[AttrProxy.Create("style","font-size:300%;text-align:center")],[Doc.TextNode(Global.String(i))]);
-   },sdmtCharacters))])])),$(self.document.getElementById("#testprofile-timer")).asPieProgress("start")):m.$==1&&(($32=Intent$2("query",m.$0),$32!=null&&$32.$==1)?m.$1.$==0:($33=Intent$2("medication_journal",m.$0),$33!=null&&$33.$==1)&&m.$1.$==0)?Journal.update(d):DialogueModule.didNotUnderstand(d,function(m$1)
+    return function()
+    {
+     return(trigger("r_test_sdmt"))("r_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnWarning("2",function()
+   {
+    return function()
+    {
+     return(trigger("r_test_sdmt"))("r_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnWarning("3",function()
+   {
+    return function()
+    {
+     return(trigger("r_test_sdmt"))("r_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnWarning("4",function()
+   {
+    return function()
+    {
+     return(trigger("r_test_sdmt"))("r_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnWarning("5",function()
+   {
+    return function()
+    {
+     return(trigger("r_test_sdmt"))("r_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnWarning("6",function()
+   {
+    return function()
+    {
+     return(trigger("r_test_sdmt"))("r_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnWarning("7",function()
+   {
+    return function()
+    {
+     return(trigger("r_test_sdmt"))("r_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnWarning("8",function()
+   {
+    return function()
+    {
+     return(trigger("r_test_sdmt"))("r_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnWarning("9",function()
+   {
+    return function()
+    {
+     return(trigger("r_test_sdmt"))("r_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnSuccess("next",function()
+   {
+    return function()
+    {
+     return(trigger("next_test_sdmt"))("next_test_sdmt");
+    };
+   }),Doc.TextNode("    "),Bs.btnDanger("stop",function()
+   {
+    return function()
+    {
+     return(trigger("stop_test_sdmt"))("stop_test_sdmt");
+    };
+   })])),say("Enter the 9 digits corresponding to the symbols shown.")):m.$==1&&(($34=Intent$2("stop_test_sdmt",m.$0),$34!=null&&$34.$==1)&&m.$1.$==0)?(popu(),$(self.document.getElementById("pp1")).asPieProgress("stop"),doc(Doc.Concat([Bs.btnPrimary("knowledge",function()
+   {
+    return function()
+    {
+     return(trigger("list_kb_categories"))("list_kb_categories");
+    };
+   }),Doc.TextNode("     "),Bs.btnPrimary("tests",function()
+   {
+    return function()
+    {
+     return(trigger("list_test_categories"))("list_test_categories");
+    };
+   }),Doc.TextNode("     "),Bs.btnPrimary("symptoms",function()
+   {
+    return function()
+    {
+     return(triggerJournal("symptom_journal"))("symptom_journal");
+    };
+   }),Doc.TextNode("     "),Bs.btnPrimary("mood",function()
+   {
+    return function()
+    {
+     return(triggerJournal("mood_journal"))("mood_journal");
+    };
+   }),Doc.TextNode("     "),Bs.btnPrimary("caregiver",function()
+   {
+    return function()
+    {
+     return(triggerJournal("caregiver_journal"))("caregiver_journal");
+    };
+   }),Doc.TextNode("     "),Bs.btnSecondary("settings",function()
+   {
+    return function()
+    {
+     return(trigger("list_settings_categories"))("list_settings_categories");
+    };
+   }),Doc.TextNode("     "),Bs.btnInfo("help",function()
+   {
+    return function()
+    {
+     return(trigger("help"))("help");
+    };
+   })]))):m.$==1&&(($36=Intent$2("query",m.$0),$36!=null&&$36.$==1)?m.$1.$==0:($37=Intent$2("medication_journal",m.$0),$37!=null&&$37.$==1)&&m.$1.$==0)?Journal.update(d):DialogueModule.didNotUnderstand(d,function(m$1)
    {
     Tests.debug(m$1);
    },Tests.name());
@@ -3589,6 +3822,7 @@
      })),Concurrency.Zero()):(user=a$22.$0,Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.updateUserLastLogin:2135349633",[user.Name]),function()
      {
       sayRandom(NLG.helloUserPhrases(),user.Name);
+      say("You have 2 new messages. You have 2 tests scheduled for today.");
       add("user",u);
       return Concurrency.Combine(user.LastLoggedIn!=null?Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.humanize:-77584724",[user.LastLoggedIn.$0]),function(a$23)
       {
@@ -3602,39 +3836,53 @@
        return Concurrency.Zero();
       }):Concurrency.Zero(),Concurrency.Delay(function()
       {
-       $("#profile").removeClass("invisible").addClass("visible");
-       doc(Doc.Concat([Bs.btnPrimary("tests",function()
+       return Concurrency.Combine($("#profile").hasClass("invisible")?($("#profile").removeClass("invisible").addClass("visible"),Concurrency.Zero()):Concurrency.Zero(),Concurrency.Delay(function()
        {
-        return function()
+        doc(Doc.Concat([Bs.btnPrimary("knowledge",function()
         {
-         return(triggerTests("list_test_categories"))("list_test_categories");
-        };
-       }),Doc.TextNode("     "),Bs.btnPrimary("symptoms",function()
-       {
-        return function()
+         return function()
+         {
+          return(triggerTests("list_kb_categories"))("list_kb_categories");
+         };
+        }),Doc.TextNode("     "),Bs.btnPrimary("tests",function()
         {
-         return(triggerJournal("symptoms_journal"))("symptoms_journal");
-        };
-       }),Doc.TextNode("     "),Bs.btnPrimary("mood",function()
-       {
-        return function()
+         return function()
+         {
+          return(triggerTests("list_test_categories"))("list_test_categories");
+         };
+        }),Doc.TextNode("     "),Bs.btnPrimary("symptoms",function()
         {
-         return(triggerJournal("mood_journal"))("mood_journal");
-        };
-       }),Doc.TextNode("     "),Bs.btnPrimary("caregiver",function()
-       {
-        return function()
+         return function()
+         {
+          return(triggerJournal("symptom_journal"))("symptom_journal");
+         };
+        }),Doc.TextNode("     "),Bs.btnPrimary("mood",function()
         {
-         return(triggerJournal("caregiver_journal"))("caregiver_journal");
-        };
-       }),Doc.TextNode("     "),Bs.btnInfo("help",function()
-       {
-        return function()
+         return function()
+         {
+          return(triggerJournal("mood_journal"))("mood_journal");
+         };
+        }),Doc.TextNode("     "),Bs.btnPrimary("caregiver",function()
         {
-         return(trigger("help"))("help");
-        };
-       })]));
-       return Concurrency.Zero();
+         return function()
+         {
+          return(triggerJournal("caregiver_journal"))("caregiver_journal");
+         };
+        }),Doc.TextNode("     "),Bs.btnSecondary("settings",function()
+        {
+         return function()
+         {
+          return(trigger("list_settings_categories"))("list_settings_categories");
+         };
+        }),Doc.TextNode("     "),Bs.btnInfo("help",function()
+        {
+         return function()
+         {
+          return(trigger("help"))("help");
+         };
+        })]));
+        return Concurrency.Zero();
+       }));
       }));
      }));
     });
@@ -4239,263 +4487,285 @@
      })));
     }
    else
-    {
-     a$11=Text.Blank(command);
-     if(a$11!=null&&a$11.$==1)
-      Client["say'"]("Tell me what you want me to do or ask me a question.");
-     else
-      {
-       a$12=Text.Debug(command);
-       if(a$12!=null&&a$12.$==1)
-        {
-         Client.debug((function($4)
-         {
-          return function($5)
-          {
-           return $4("Utterances: "+Utils.prettyPrint($5));
-          };
-         }(Global.id))(Client.Utterances()));
-         Client.debug((function($4)
-         {
-          return function($5)
-          {
-           return $4("Questions: "+Utils.prettyPrint($5));
-          };
-         }(Global.id))(Client.Questions()));
-         e=Client.Props().GetEnumerator$1();
-         try
-         {
-          while(e.MoveNext())
-           {
-            p=e.Current();
-            Client.debug((((Runtime.Curried3(function($4,$5,$6)
-            {
-             return $4(Utils.toSafe($5)+": "+Utils.prettyPrint($6));
-            }))(Global.id))(p.K))(p.V));
-           }
+    if(Dialogue$1.get_Props().ContainsKey("testentry"))
+     {
+      Client.debug("Routing input as test entry.");
+      Tests.update(push(new Utterance$1({
+       $:0,
+       $0:"r_test_sdmt",
+       $1:{
+        $:1,
+        $0:new Intent$1({
+         $:0,
+         $0:"r_test_sdmt",
+         $1:{
+          $:1,
+          $0:1
          }
-         finally
+        })
+       },
+       $2:null,
+       $3:null
+      })));
+     }
+    else
+     {
+      a$11=Text.Blank(command);
+      if(a$11!=null&&a$11.$==1)
+       Client["say'"]("Tell me what you want me to do or ask me a question.");
+      else
+       {
+        a$12=Text.Debug(command);
+        if(a$12!=null&&a$12.$==1)
          {
-          e.Dispose();
+          Client.debug((function($4)
+          {
+           return function($5)
+           {
+            return $4("Utterances: "+Utils.prettyPrint($5));
+           };
+          }(Global.id))(Client.Utterances()));
+          Client.debug((function($4)
+          {
+           return function($5)
+           {
+            return $4("Questions: "+Utils.prettyPrint($5));
+           };
+          }(Global.id))(Client.Questions()));
+          e=Client.Props().GetEnumerator$1();
+          try
+          {
+           while(e.MoveNext())
+            {
+             p=e.Current();
+             Client.debug((((Runtime.Curried3(function($4,$5,$6)
+             {
+              return $4(Utils.toSafe($5)+": "+Utils.prettyPrint($6));
+             }))(Global.id))(p.K))(p.V));
+            }
+          }
+          finally
+          {
+           e.Dispose();
+          }
+          (new AjaxRemotingProvider.New()).Send("Mina.Web:Mina.Web.Server.getGoogleNLU:6",[]);
          }
-         (new AjaxRemotingProvider.New()).Send("Mina.Web:Mina.Web.Server.getGoogleNLU:6",[]);
-        }
-       else
-        {
-         a=Text.DebugEntities(command);
-         a!=null&&a.$==1?(e$1=a.$0,Client.CUI().Wait((b=null,Concurrency.Delay(function()
+        else
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:203955644",[e$1]),function(a$13)
+          a=Text.DebugEntities(command);
+          a!=null&&a.$==1?(e$1=a.$0,Client.CUI().Wait((b=null,Concurrency.Delay(function()
           {
-           var entities;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(entities=a$13.$0,Concurrency.Combine(Concurrency.For(entities,function(a$14)
+           return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEntities:203955644",[e$1]),function(a$13)
            {
-            Client.debug((function($4)
-            {
-             return function($5)
-             {
-              return $4(Mina$Web_GeneratedPrintf.p($5));
-             };
-            }(Global.id))(a$14));
-            return Concurrency.Zero();
-           }),Concurrency.Delay(function()
-           {
-            Client.echo("Entities:");
-            return Concurrency.For(entities,function(a$14)
-            {
-             Client.echo((function($4)
-             {
-              return function($5)
-              {
-               return $4("<span style='color:white;background-color:#7B68EE'>"+Mina$Web_GeneratedPrintf.p($5)+"</span>");
-              };
-             }(Global.id))(a$14));
-             return Concurrency.Zero();
-            });
-           })));
-          });
-         })))):(a$1=Text.DebugLemmas(command),a$1!=null&&a$1.$==1?(e$2=a$1.$0,Client.CUI().Wait((b$1=null,Concurrency.Delay(function()
-         {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:-700637269",[e$2]),function(a$13)
-          {
-           var lemmas;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(lemmas=a$13.$0,Concurrency.Combine(Concurrency.For(lemmas,function(a$14)
-           {
-            Client.debug((function($4)
-            {
-             return function($5)
-             {
-              return $4(Mina$Web_GeneratedPrintf.p$1($5));
-             };
-            }(Global.id))(a$14));
-            return Concurrency.Zero();
-           }),Concurrency.Delay(function()
-           {
-            Client.echo("Lemmas:");
-            return Concurrency.For(lemmas,function(a$14)
-            {
-             Client.echo((function($4)
-             {
-              return function($5)
-              {
-               return $4("<span style='color:white;background-color:#FFC0CB'>"+Mina$Web_GeneratedPrintf.p$1($5)+"</span>");
-              };
-             }(Global.id))(a$14));
-             return Concurrency.Zero();
-            });
-           })));
-          });
-         })))):(a$2=Text.DebugTriples(command),a$2!=null&&a$2.$==1?(dt=a$2.$0,Client.CUI().Wait((b$2=null,Concurrency.Delay(function()
-         {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:1506671370",[dt]),function(a$13)
-          {
-           var c;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(c=a$13.$0,Concurrency.Combine(Concurrency.For(c,function(a$14)
-           {
-            return Concurrency.For(a$14,function(a$15)
+            var entities;
+            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(entities=a$13.$0,Concurrency.Combine(Concurrency.For(entities,function(a$14)
             {
              Client.debug((function($4)
              {
               return function($5)
               {
-               return $4(Mina$Web_GeneratedPrintf.p$2($5));
+               return $4(Mina$Web_GeneratedPrintf.p($5));
               };
-             }(Global.id))(a$15));
+             }(Global.id))(a$14));
              return Concurrency.Zero();
-            });
-           }),Concurrency.Delay(function()
-           {
-            Client.echo("Triples:");
-            return Concurrency.For(c,function(a$14)
+            }),Concurrency.Delay(function()
             {
-             Client.echo((function($4)
+             Client.echo("Entities:");
+             return Concurrency.For(entities,function(a$14)
              {
-              return function($5)
+              Client.echo((function($4)
               {
-               return $4("<span style='color:white;background-color:#00FA9A'>"+Utils.printList(function($6)
+               return function($5)
                {
-                return Mina$Web_GeneratedPrintf.p$2($6);
-               },$5)+"</span>");
-              };
-             }(Global.id))(a$14));
-             return Concurrency.Zero();
-            });
-           })));
-          });
-         })))):(a$3=Text.DebugEmotionalTraits(command),a$3!=null&&a$3.$==1?(et=a$3.$0,Client.CUI().Wait((b$3=null,Concurrency.Delay(function()
-         {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:2136513959",[et]),function(a$13)
+                return $4("<span style='color:white;background-color:#7B68EE'>"+Mina$Web_GeneratedPrintf.p($5)+"</span>");
+               };
+              }(Global.id))(a$14));
+              return Concurrency.Zero();
+             });
+            })));
+           });
+          })))):(a$1=Text.DebugLemmas(command),a$1!=null&&a$1.$==1?(e$2=a$1.$0,Client.CUI().Wait((b$1=null,Concurrency.Delay(function()
           {
-           var t;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
+           return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getMainLemmas:-700637269",[e$2]),function(a$13)
            {
-            Client.debug((function($4)
+            var lemmas;
+            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(lemmas=a$13.$0,Concurrency.Combine(Concurrency.For(lemmas,function(a$14)
             {
-             return function($5)
-             {
-              return $4(Mina$Web_GeneratedPrintf.p$10($5));
-             };
-            }(Global.id))(a$14));
-            return Concurrency.Zero();
-           }),Concurrency.Delay(function()
-           {
-            Client.echo("Emotional Traits:");
-            return Concurrency.For(t,function(a$14)
-            {
-             Client.echo((function($4)
+             Client.debug((function($4)
              {
               return function($5)
               {
-               return $4("<span style='color:white;background-color:#FF4500'>"+Mina$Web_GeneratedPrintf.p$10($5)+"</span>");
+               return $4(Mina$Web_GeneratedPrintf.p$1($5));
               };
              }(Global.id))(a$14));
              return Concurrency.Zero();
-            });
-           })));
-          });
-         })))):(a$4=Text.DebugBehavioralTraits(command),a$4!=null&&a$4.$==1?(bt=a$4.$0,Client.CUI().Wait((b$4=null,Concurrency.Delay(function()
-         {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:132220133",[bt]),function(a$13)
-          {
-           var t;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
-           {
-            Client.debug((function($4)
+            }),Concurrency.Delay(function()
             {
-             return function($5)
+             Client.echo("Lemmas:");
+             return Concurrency.For(lemmas,function(a$14)
              {
-              return $4(Mina$Web_GeneratedPrintf.p$11($5));
-             };
-            }(Global.id))(a$14));
-            return Concurrency.Zero();
-           }),Concurrency.Delay(function()
+              Client.echo((function($4)
+              {
+               return function($5)
+               {
+                return $4("<span style='color:white;background-color:#FFC0CB'>"+Mina$Web_GeneratedPrintf.p$1($5)+"</span>");
+               };
+              }(Global.id))(a$14));
+              return Concurrency.Zero();
+             });
+            })));
+           });
+          })))):(a$2=Text.DebugTriples(command),a$2!=null&&a$2.$==1?(dt=a$2.$0,Client.CUI().Wait((b$2=null,Concurrency.Delay(function()
+          {
+           return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getTriples:1506671370",[dt]),function(a$13)
            {
-            Client.echo("Behavioral Traits:");
-            return Concurrency.For(t,function(a$14)
+            var c;
+            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(c=a$13.$0,Concurrency.Combine(Concurrency.For(c,function(a$14)
             {
-             Client.echo((function($4)
+             return Concurrency.For(a$14,function(a$15)
+             {
+              Client.debug((function($4)
+              {
+               return function($5)
+               {
+                return $4(Mina$Web_GeneratedPrintf.p$2($5));
+               };
+              }(Global.id))(a$15));
+              return Concurrency.Zero();
+             });
+            }),Concurrency.Delay(function()
+            {
+             Client.echo("Triples:");
+             return Concurrency.For(c,function(a$14)
+             {
+              Client.echo((function($4)
+              {
+               return function($5)
+               {
+                return $4("<span style='color:white;background-color:#00FA9A'>"+Utils.printList(function($6)
+                {
+                 return Mina$Web_GeneratedPrintf.p$2($6);
+                },$5)+"</span>");
+               };
+              }(Global.id))(a$14));
+              return Concurrency.Zero();
+             });
+            })));
+           });
+          })))):(a$3=Text.DebugEmotionalTraits(command),a$3!=null&&a$3.$==1?(et=a$3.$0,Client.CUI().Wait((b$3=null,Concurrency.Delay(function()
+          {
+           return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getEmotionalTraits:2136513959",[et]),function(a$13)
+           {
+            var t;
+            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
+            {
+             Client.debug((function($4)
              {
               return function($5)
               {
-               return $4("<span style='color:white;background-color:#FF4500'>"+Mina$Web_GeneratedPrintf.p$11($5)+"</span>");
+               return $4(Mina$Web_GeneratedPrintf.p$10($5));
               };
              }(Global.id))(a$14));
              return Concurrency.Zero();
-            });
-           })));
-          });
-         })))):($2=Text.Voices(command),$2!=null&&$2.$==1?(voices=ClientExtensions.toArray(ClientExtensions.speechSynthesis().getVoices()),Client["say'"]((function($4)
-         {
-          return function($5)
-          {
-           return $4("There are currently "+Global.String($5)+" voices installed on this computer or device.");
-          };
-         }(Global.id))(Arrays.length(voices))),Arrays.iteri(function(i,v)
-         {
-          return Client["say'"](((((Runtime.Curried(function($4,$5,$6,$7)
-          {
-           return $4("Voice "+Global.String($5)+". Name: "+Utils.toSafe($6)+", Local: "+Utils.prettyPrint($7)+".");
-          },4))(Global.id))(i))(v.name))(v.localService));
-         },voices)):Client.ClientState().$==1?(a$5=Text.QuickHello(command),(a$5!=null&&a$5.$==1?($3=a$5.$0,true):(a$6=Text.QuickHelp(command),a$6!=null&&a$6.$==1?($3=a$6.$0,true):(a$7=Text.QuickYes(command),a$7!=null&&a$7.$==1?($3=a$7.$0,true):(a$8=Text.QuickNo(command),a$8!=null&&a$8.$==1?($3=a$8.$0,true):(a$9=Text.QuickNumber(command),a$9!=null&&a$9.$==1&&($3=a$9.$0,true))))))?(Client.debug((function($4)
-         {
-          return function($5)
-          {
-           return $4("Quick Text: "+Mina$Web_GeneratedPrintf.p$12($5)+".");
-          };
-         }(Global.id))($3)),Main.update(push($3)),Client.set_ClientState(ClientState.ClientReady)):(a$10=Text.JournalEntry(command),a$10!=null&&a$10.$==1?(m=a$10.$0,Client.debug((function($4)
-         {
-          return function($5)
-          {
-           return $4("Journal entry: "+Mina$Web_GeneratedPrintf.p$12($5)+".");
-          };
-         }(Global.id))(m)),Main.update(push(m)),Client.set_ClientState(ClientState.ClientReady)):Client.CUI().Wait((b$5=null,Concurrency.Delay(function()
-         {
-          Client.set_ClientState(ClientState.ClientUnderstand);
-          Text.getUtterance(command,function(meaning)
-          {
-           var a$13,m$1;
-           a$13=Text.HasUtterance(meaning);
-           if(a$13!=null&&a$13.$==1)
+            }),Concurrency.Delay(function()
             {
-             m$1=a$13.$0;
-             Client.debug(((((Runtime.Curried(function($4,$5,$6,$7)
+             Client.echo("Emotional Traits:");
+             return Concurrency.For(t,function(a$14)
              {
-              return $4("Text: Intent: "+Mina$Web_GeneratedPrintf.p$13($5)+", Traits: "+Mina$Web_GeneratedPrintf.p$16($6)+", Entities: "+Mina$Web_GeneratedPrintf.p$18($7)+".");
-             },4))(Global.id))(m$1.get_Intent()))(m$1.get_Traits()))(m$1.get_Entities()));
-             Main.update(push(m$1));
-            }
-           else
+              Client.echo((function($4)
+              {
+               return function($5)
+               {
+                return $4("<span style='color:white;background-color:#FF4500'>"+Mina$Web_GeneratedPrintf.p$10($5)+"</span>");
+               };
+              }(Global.id))(a$14));
+              return Concurrency.Zero();
+             });
+            })));
+           });
+          })))):(a$4=Text.DebugBehavioralTraits(command),a$4!=null&&a$4.$==1?(bt=a$4.$0,Client.CUI().Wait((b$4=null,Concurrency.Delay(function()
+          {
+           return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Mina.Web:Mina.Web.Server.getBehavioralTraits:132220133",[bt]),function(a$13)
+           {
+            var t;
+            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
             {
-             Client.debug("Text: Did not receive a meaning from the server.");
-             Client["say'"]("Sorry I did not understand what you said.");
-            }
-          });
-          Client.set_ClientState(ClientState.ClientReady);
-          return Concurrency.Zero();
-         }))))):Client.ClientState().$==0?ClientExtensions.error("Client is not initialized."):Client["say'"]("I'm still trying to understand what you said before."))))));
-        }
-      }
-    }
+             Client.debug((function($4)
+             {
+              return function($5)
+              {
+               return $4(Mina$Web_GeneratedPrintf.p$11($5));
+              };
+             }(Global.id))(a$14));
+             return Concurrency.Zero();
+            }),Concurrency.Delay(function()
+            {
+             Client.echo("Behavioral Traits:");
+             return Concurrency.For(t,function(a$14)
+             {
+              Client.echo((function($4)
+              {
+               return function($5)
+               {
+                return $4("<span style='color:white;background-color:#FF4500'>"+Mina$Web_GeneratedPrintf.p$11($5)+"</span>");
+               };
+              }(Global.id))(a$14));
+              return Concurrency.Zero();
+             });
+            })));
+           });
+          })))):($2=Text.Voices(command),$2!=null&&$2.$==1?(voices=ClientExtensions.toArray(ClientExtensions.speechSynthesis().getVoices()),Client["say'"]((function($4)
+          {
+           return function($5)
+           {
+            return $4("There are currently "+Global.String($5)+" voices installed on this computer or device.");
+           };
+          }(Global.id))(Arrays.length(voices))),Arrays.iteri(function(i,v)
+          {
+           return Client["say'"](((((Runtime.Curried(function($4,$5,$6,$7)
+           {
+            return $4("Voice "+Global.String($5)+". Name: "+Utils.toSafe($6)+", Local: "+Utils.prettyPrint($7)+".");
+           },4))(Global.id))(i))(v.name))(v.localService));
+          },voices)):Client.ClientState().$==1?(a$5=Text.QuickHello(command),(a$5!=null&&a$5.$==1?($3=a$5.$0,true):(a$6=Text.QuickHelp(command),a$6!=null&&a$6.$==1?($3=a$6.$0,true):(a$7=Text.QuickYes(command),a$7!=null&&a$7.$==1?($3=a$7.$0,true):(a$8=Text.QuickNo(command),a$8!=null&&a$8.$==1?($3=a$8.$0,true):(a$9=Text.QuickNumber(command),a$9!=null&&a$9.$==1&&($3=a$9.$0,true))))))?(Client.debug((function($4)
+          {
+           return function($5)
+           {
+            return $4("Quick Text: "+Mina$Web_GeneratedPrintf.p$12($5)+".");
+           };
+          }(Global.id))($3)),Main.update(push($3)),Client.set_ClientState(ClientState.ClientReady)):(a$10=Text.JournalEntry(command),a$10!=null&&a$10.$==1?(m=a$10.$0,Client.debug((function($4)
+          {
+           return function($5)
+           {
+            return $4("Journal entry: "+Mina$Web_GeneratedPrintf.p$12($5)+".");
+           };
+          }(Global.id))(m)),Main.update(push(m)),Client.set_ClientState(ClientState.ClientReady)):Client.CUI().Wait((b$5=null,Concurrency.Delay(function()
+          {
+           Client.set_ClientState(ClientState.ClientUnderstand);
+           Text.getUtterance(command,function(meaning)
+           {
+            var a$13,m$1;
+            a$13=Text.HasUtterance(meaning);
+            if(a$13!=null&&a$13.$==1)
+             {
+              m$1=a$13.$0;
+              Client.debug(((((Runtime.Curried(function($4,$5,$6,$7)
+              {
+               return $4("Text: Intent: "+Mina$Web_GeneratedPrintf.p$13($5)+", Traits: "+Mina$Web_GeneratedPrintf.p$16($6)+", Entities: "+Mina$Web_GeneratedPrintf.p$18($7)+".");
+              },4))(Global.id))(m$1.get_Intent()))(m$1.get_Traits()))(m$1.get_Entities()));
+              Main.update(push(m$1));
+             }
+            else
+             {
+              Client.debug("Text: Did not receive a meaning from the server.");
+              Client["say'"]("Sorry I did not understand what you said.");
+             }
+           });
+           Client.set_ClientState(ClientState.ClientReady);
+           return Concurrency.Zero();
+          }))))):Client.ClientState().$==0?ClientExtensions.error("Client is not initialized."):Client["say'"]("I'm still trying to understand what you said before."))))));
+         }
+       }
+     }
    return self.scrollTo(0,Operators.toInt(self.document.body.scrollHeight));
   }
   SC$10.CUI=CUI$1.New(null,null,null,(SDK.applicationId="4277115329081938617",sdk=new Global.SDKConnection(),web=new Global.WebAvatar(),web.version=8.5,web.connection=sdk,web.avatar="20926186",web.voice="cmu-slt",web.voiceMod="default",web.width=$(self).width()<=479?90:175,web.createBox(),web.addMessage(""),web.processMessages(0),web),false,new Dictionary.New$5(),new Global.TypingDNA());

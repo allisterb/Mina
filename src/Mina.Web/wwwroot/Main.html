@@ -17,21 +17,25 @@
             </div>
             <div class="col-3" id="sidebar">
                 <div class="sticky-top">
-                    <div id="profile" class="card text-center mb-5">
-                        <div class="card-header">User</div>
+                    <div id="profile" class="card text-center mb-5 invisible">
+                        <div class="card-header">User: Bob Sagat</div>
                         <img id="profile-portrait" class="card-img-top img-thumbnail" src="https://pbs.twimg.com/profile_images/461652698236850176/cucY7-cL.jpeg" alt="Card image cap">
                         <div class="card-body">
-                            <h5 id="profile-name" class="card-title">Bob Sagat</h5>
+                            <div id="profile-name" class="card-title text-left"><a href="javascript:;">&#x1F4E8; 1 message(s).</a></div>
+                            <div id="profile-name" class="card-title text-left"><a href="javascript:;">&#x1F4C5; 2 test(s) scheduled for today.</a></div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-muted">Provider: Dr. John Smith</div>
                         </div>
                     </div>
                     <div class="card text-center mb-5 border-primary invisible" id="testprofile">
-                        <div class="card-header">Active Test</div>
+                        <div id="testprofile-name" class="card-header">Active Test: SDMT</div>
                         <div class="card-body">
-                            <h5 id="testprofile-name" class="card-title">PASAT</h5>
-                            <div class="card-body"></div>
-                        </div>
-                        <div id="testprofile-timer" class="pieProgress--countdown" data-barcolor="#3daf2c" data-barsize="10" role="progressbar">
-                            <span class="pie_progress__number"></span>
+                            <h5 id="testprofile-round" class="card-title">Round 1</h5>
+                            <div id="testprofile-instructions" class="text-left">Enter the digit corresponding to the symbol shown.</div>
+                            <div id="pp1" class="pieProgress--countdown" data-barcolor="#3498db" data-barsize="10" role="progressbar">
+                                <span class="pie_progress__number"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
