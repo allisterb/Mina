@@ -37,7 +37,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{4B8B9364-8E9C-4C64-8BE4-FEF17BE4EE9C}"
 	ProjectSection(SolutionItems) = preProject
 		..\deploy\SQL\DDL_CREATE_DB_mina.sql = ..\deploy\SQL\DDL_CREATE_DB_mina.sql
-		DDL_CREATE_TABLE_mina.config.sql = DDL_CREATE_TABLE_mina.config.sql
+		..\deploy\SQL\DDL_CREATE_TABLE_mina.config.sql = ..\deploy\SQL\DDL_CREATE_TABLE_mina.config.sql
 		..\deploy\SQL\DDL_CREATE_TABLE_mina.messages.sql = ..\deploy\SQL\DDL_CREATE_TABLE_mina.messages.sql
 		..\deploy\SQL\DDL_CREATE_TABLE_mina_user.sql = ..\deploy\SQL\DDL_CREATE_TABLE_mina_user.sql
 		..\deploy\SQL\DDL_CREATE_USER_mina.sql = ..\deploy\SQL\DDL_CREATE_USER_mina.sql

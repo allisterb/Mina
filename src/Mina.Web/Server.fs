@@ -51,63 +51,6 @@ module Server =
     [<Rpc>]
     let mdtotext(s:string) = async { return Markdig.Markdown.ToPlainText s }
 
-    (* Authentication functions *)
-    [<Rpc>]
-    let addUserTypingPattern (id:string) (tp: string) = async { return! TypingDNA.savePattern id tp }
-
-    [<Rpc>]
-    let verifyUserTypingPattern (id:string) (tp: string) = async { return! TypingDNA.verifyPattern id tp }
-
-    [<Rpc>]
-    let enrollUser (userName:string) (voiceData:JavaScript.Int16Array) =
-        async {
-            match! AzureSpeech.createVoiceProfile() with
-            | Error e -> return None
-            | Ok profile -> 
-                match! AzureSpeech.enrollVoiceProfile profile voiceData with
-                | Error e -> 
-                    errf "Azure Speech returned {0} when enrolling user {1}." [e; userName]
-                    return None
-                | Ok r -> 
-                    infof "Azure Speech audio profile enrollment for user {0} has: length {1}, speech length {2}, remaining enrollments {3}" [userName; r.AudioLength; r.AudioSpeechLength; r.RemainingEnrollmentsCount]
-                    return Some(r)
-        }
-
-    [<Rpc>]
-    let detectFace (dataUrl:string) = AzureFace.detectFace <| AzureFace.getImageFromDataUrl dataUrl
-        
-    [<Rpc>]
-    let hasFace (dataUrl:string) = 
-        async {
-            let! f = detectFace dataUrl
-            return isVal f
-        }
-
-    [<Rpc>]
-    let detectFaceAttributes (dataUrl:string) = AzureFace.detectFaceAttributes <| AzureFace.getImageFromDataUrl dataUrl
-
-    [<Rpc>]
-    let authUserFace(imageDataUrl:string) =
-        async {
-            match! detectFace imageDataUrl with
-            | None -> return false
-            | Some f -> 
-                infof "{0}" [f.FaceAttributes.Age.Value.ToString()]
-                return true
-        }
-
-    [<Rpc>]
-    let enrollUserFace(un: string, imgDataUrl:string) = 
-        async {
-            let uid = Guid.NewGuid().ToString()
-            match! AzureFace.addPerson uid with
-            | Ok p -> 
-                match! imgDataUrl |> AzureFace.getImageFromDataUrl |> AzureFace.enrollPersonFace p with
-                | Ok _ -> return Ok uid
-                | Error e -> return Error e 
-            | Error e -> return Error e
-        }
-
     (* User functions *)
     [<Rpc>]
     let getUser(user:string) : Async<User option> = 
@@ -139,18 +82,6 @@ module Server =
     let updateUserLastLogin (user:string) : Async<Result<unit, exn>> =
         pgdb
         |> Sql.query "UPDATE public.Mina_user SET last_logged_in=@d WHERE user_name=@u;"
-        |> Sql.parameters [("u", Sql.string user); ("d", Sql.timestamp (DateTime.Now))]
-        |> Sql.executeNonQueryAsync
-        |> Async.map (
-            function 
-            | Ok n -> if n > 0 then Ok(infof "Updated user {0} last login time in database." [user]) else Error(exn("Insert user returned 0.")) 
-            | Error exn -> errex "Error updating user {0} last login time in database." exn [user]; Error exn
-        )
-
-    [<Rpc>]
-    let updateUserTypingProfileId (user:string) (tid:string) : Async<Result<unit, exn>> =
-        pgdb
-        |> Sql.query "UPDATE public.Mina_user SET typig_logge_in=@d WHERE user_name=@u;"
         |> Sql.parameters [("u", Sql.string user); ("d", Sql.timestamp (DateTime.Now))]
         |> Sql.executeNonQueryAsync
         |> Async.map (

@@ -7,7 +7,6 @@
   <ItemGroup>
     <Compile Include="Patient.fs" />
     <Compile Include="ClientExtensions.fs" />
-    <Compile Include="Authentication.fs" />
     <Compile Include="Bootstrap.fs" />
     <Compile Include="JQueryPlugins.fs" />
     <Compile Include="Witai.fs" />
@@ -53,6 +52,7 @@
     <PackageReference Include="WebSharper" Version="5.0.0.56-preview1" />
     <PackageReference Include="WebSharper.FSharp" Version="5.0.0.56-preview1" />
     <PackageReference Include="WebSharper.UI" Version="5.0.0.56-preview1" />
+    <PackageReference Include="WebSharper.JQuery" Version="5.0.0.56-preview1" />
     <PackageReference Include="WebSharper.AspNetCore" Version="5.0.0.56-preview1" />
   </ItemGroup>
   <ItemGroup>
